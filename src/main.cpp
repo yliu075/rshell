@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     gethostname(hostname, len);
     cout << loginname << '@' << hostname << '$'<< endl;
     */
-    char *test = "ls";
+    //const char *test = "ls";
     const char *cmd;
     string cmdstring;
     
