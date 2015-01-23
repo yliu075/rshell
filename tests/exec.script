@@ -1,0 +1,151 @@
+Script started on Fri 23 Jan 2015 01:53:55 PM UTC
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (exec) $ ./bin/rshell
+$ 
+$ ls#just ls
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+$ ls            #ls with space
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+$ ls -a #ls with one argv
+.   .c9   LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+..  .git  Makefile  Space.cpp  src  test.out  tok.out
+$ ls -a -l #ls with two argv
+total 96
+drwxrwxr-x  7 ubuntu ubuntu  4096 Jan 23 13:53 .
+drwxr-xr-x 23 ubuntu ubuntu  4096 Jan 22 06:29 ..
+drwxr-xr-x  3 ubuntu ubuntu  4096 Jan 22 05:19 .c9
+drwxrwxr-x  8 ubuntu ubuntu  4096 Jan 23 13:36 .git
+-rw-rw-r--  1 ubuntu ubuntu 18027 Jan 22 05:18 LICENSE
+-rw-r--r--  1 ubuntu ubuntu   180 Jan 23 09:29 Makefile
+-rw-rw-r--  1 ubuntu ubuntu     9 Jan 22 05:18 README.md
+-rw-r--r--  1 ubuntu ubuntu   456 Jan 23 08:10 Space.cpp
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 13:53 bin
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 11:33 src
+-rw-r--r--  1 ubuntu ubuntu   744 Jan 23 13:13 test.cpp
+-rwxr-xr-x  1 ubuntu ubuntu 14291 Jan 23 13:13 test.out
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 13:53 tests
+-rwxr-xr-x  1 ubuntu ubuntu  9456 Jan 22 07:43 tok.out
+-rw-r--r--  1 ubuntu ubuntu   740 Jan 22 07:42 tok_test.cpp
+$ ls-a-a l #ls with argv without spaces
+total 96
+drwxrwxr-x  7 ubuntu ubuntu  4096 Jan 23 13:53 .
+drwxr-xr-x 23 ubuntu ubuntu  4096 Jan 22 06:29 ..
+drwxr-xr-x  3 ubuntu ubuntu  4096 Jan 22 05:19 .c9
+drwxrwxr-x  8 ubuntu ubuntu  4096 Jan 23 13:36 .git
+-rw-rw-r--  1 ubuntu ubuntu 18027 Jan 22 05:18 LICENSE
+-rw-r--r--  1 ubuntu ubuntu   180 Jan 23 09:29 Makefile
+-rw-rw-r--  1 ubuntu ubuntu     9 Jan 22 05:18 README.md
+-rw-r--r--  1 ubuntu ubuntu   456 Jan 23 08:10 Space.cpp
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 13:53 bin
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 11:33 src
+-rw-r--r--  1 ubuntu ubuntu   744 Jan 23 13:13 test.cpp
+-rwxr-xr-x  1 ubuntu ubuntu 14291 Jan 23 13:13 test.out
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 13:53 tests
+-rwxr-xr-x  1 ubuntu ubuntu  9456 Jan 22 07:43 tok.out
+-rw-r--r--  1 ubuntu ubuntu   740 Jan 22 07:42 tok_test.cpp
+$ ls           -a              -l #              #ls with lots of spaces inbet    between argv
+total 96
+drwxrwxr-x  7 ubuntu ubuntu  4096 Jan 23 13:53 .
+drwxr-xr-x 23 ubuntu ubuntu  4096 Jan 22 06:29 ..
+drwxr-xr-x  3 ubuntu ubuntu  4096 Jan 22 05:19 .c9
+drwxrwxr-x  8 ubuntu ubuntu  4096 Jan 23 13:36 .git
+-rw-rw-r--  1 ubuntu ubuntu 18027 Jan 22 05:18 LICENSE
+-rw-r--r--  1 ubuntu ubuntu   180 Jan 23 09:29 Makefile
+-rw-rw-r--  1 ubuntu ubuntu     9 Jan 22 05:18 README.md
+-rw-r--r--  1 ubuntu ubuntu   456 Jan 23 08:10 Space.cpp
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 13:53 bin
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 11:33 src
+-rw-r--r--  1 ubuntu ubuntu   744 Jan 23 13:13 test.cpp
+-rwxr-xr-x  1 ubuntu ubuntu 14291 Jan 23 13:13 test.out
+drwxr-xr-x  2 ubuntu ubuntu  4096 Jan 23 13:53 tests
+-rwxr-xr-x  1 ubuntu ubuntu  9456 Jan 22 07:43 tok.out
+-rw-r--r--  1 ubuntu ubuntu   740 Jan 22 07:42 tok_test.cpp
+$ ls;ls #ls  2 ls with semi colon in between
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+$ ls-a;ls-a #ls                   ;           ls         #^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D                                                            ls 2 l    2 ls with lots p of spaces
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+$          ls      #spc aces in front of ls
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+$ ls-a;ls-a #2 ls with argv
+.   .c9   LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+..  .git  Makefile  Space.cpp  src  test.out  tok.out
+.   .c9   LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+..  .git  Makefile  Space.cpp  src  test.out  tok.out
+$ ls       ls    -a   ;    ls    -a   #2ls   ls with argv with space
+.   .c9   LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+..  .git  Makefile  Space.cpp  src  test.out  tok.out
+.   .c9   LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+..  .git  Makefile  Space.cpp  src  test.out  tok.out
+$ ls ; ls; #2 ls              ; #ls with stray semi colon
+ls: cannot access ;: No such file or directory
+$ ls ;
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+$ ls;
+LICENSE   README.md  bin  test.cpp  tests    tok_test.cpp
+Makefile  Space.cpp  src  test.out  tok.out
+$ g++ -std=c++ -Wall -Werror -ansi -pedantic src   test.cpp -o test.out
+g++: error: unrecognized command line option ‘-std=c++’
+$ g++ -std=c++11 -Wall -Werror -ansi -pedantic test.cpp -o test #      #g++ with lots of argv
+$ ls || pwd  #ls or pwd
+LICENSE   README.md  bin  test	    test.out  tok.out
+Makefile  Space.cpp  src  test.cpp  tests     tok_test.cpp
+$ l || pwd #l or pwd
+error in execvp: No such file or directory
+/home/ubuntu/workspace
+$ ls && pwd #ls and pwd
+LICENSE   README.md  bin  test	    test.out  tok.out
+Makefile  Space.cpp  src  test.cpp  tests     tok_test.cpp
+/home/ubuntu/workspace
+$ l && pwd # l  l adn  nd pwd
+error in execvp: No such file or directory
+$ ls -1 a -l    || pwd ##   or with argv
+.   .c9   LICENSE   README.md  bin  test      test.out	tok.out
+..  .git  Makefile  Space.cpp  src  test.cpp  tests	tok_test.cpp
+$ ls -a && pwd #and with argv
+.   .c9   LICENSE   README.md  bin  test      test.out	tok.out
+..  .git  Makefile  Space.cpp  src  test.cpp  tests	tok_test.cpp
+/home/ubuntu/workspace
+$ pwd || ls; pwd #first semi colon then                 or then semi colon
+/home/ubuntu/workspace
+/home/ubuntu/workspace
+$ pwd && ls; pwd #fis rst and then semi colon
+/home/ubuntu/workspace
+LICENSE   README.md  bin  test	    test.out  tok.out
+Makefile  Space.cpp  src  test.cpp  tests     tok_test.cpp
+/home/ubuntu/workspace
+$ pwd && ls && pwd #  w 2 ands
+/home/ubuntu/workspace
+LICENSE   README.md  bin  test	    test.out  tok.out
+Makefile  Space.cpp  src  test.cpp  tests     tok_test.cpp
+/home/ubuntu/workspace
+$ pwd && ls || #and then or
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+Aborted
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (exec) $ ./bin/rshellssh yliu075@hammer.cs.ucr.edu[17P./bin/rshell
+$ exit
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (exec) $ ./bin/rshell
+$ exit #exit command
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (exec) $ ./bin/rshell
+$               exit #e exit command with spaces
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (exec) $ ./bin/rshellssh yliu075@hammer.cs.ucr.edu[17P./bin/rshell
+$ ls;exit #exit command after a semi o colon
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (exec) $ ./bin/rshell
+$ pwd
+/home/ubuntu/workspace
+$ exit #exit cp ommand after exacute   ing pwd
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (exec) $ ./bin/rshell
+$ exit; exi   pwd #exit command before semi colon
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (exec) $ exit
+exit
+
+Script done on Fri 23 Jan 2015 02:16:21 PM UTC
