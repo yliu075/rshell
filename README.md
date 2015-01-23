@@ -26,7 +26,11 @@ $ bin/rshell
 ```
 
 ###known bugs
+
 1. cannot use || before &&          example: pwd || ls && pwd
+
 2. cannot use || before ||          example: pwd || ls || pwd
+
 3. cannot use gethostname() and getlogin() when running on Windows
+
 4. sometimes requires two exits to quit FIXED
