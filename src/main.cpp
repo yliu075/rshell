@@ -30,9 +30,13 @@ void rshell()
         cmdstring.erase(0,1);
     }
     if (cmdstring.size() > 3 && cmdstring.substr(0,4) == "exit") exit(0);
-    while (cmdstring.find(' ') != string::npos) {
-        cmdstring.erase(cmdstring.find(' '));
+    string tempString;
+    for (size_t t = 0; t < cmdstring.size(); t++) {
+        if (cmdstring.at(t) != ' ') {
+            tempString = tempString + cmdstring.at(t);
+        }
     }
+    cmdstring = tempString;
     cout << "cmdstring: "<< cmdstring << endl;
     vector<string> tokens;
     char_separator<char> dash("","-");
