@@ -15,14 +15,14 @@ using namespace boost;
 
 void rshell()
 {
-    //char host[64];
-    //char *login = getlogin();
-    //gethostname(host,sizeof host);
+    char host[64];
+    char *login = getlogin();
+    gethostname(host,sizeof host);
     
     string cmdstring;
     
-    //cout << login << '@' << host << "$ ";
-    cout << "$ ";
+    cout << login << '@' << host << "$ ";
+    //cout << "$ ";
     getline(cin, cmdstring);
     if (cmdstring.size() == 0) {
         rshell();
