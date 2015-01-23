@@ -49,13 +49,12 @@ int rshell()
     }
     
     cmdstring = tempString;
-    cout << "cmdstring: "<< cmdstring << endl;
-    cout << "last char: " << cmdstring.at(cmdstring.size() - 1)<< endl;
+    // cout << "cmdstring: "<< cmdstring << endl;
+    // cout << "last char: " << cmdstring.at(cmdstring.size() - 1)<< endl;
     while (cmdstring.size() > 0 && (cmdstring.at(cmdstring.size() - 1) == ';' || cmdstring.at(cmdstring.size() - 1) == '|' || cmdstring.at(cmdstring.size() - 1) == '&' || cmdstring.at(cmdstring.size() - 1) == ' ')) {
         cmdstring.erase(cmdstring.size() - 1, 1);
     }
     if (cmdstring.size() == 0) {
-        cout << "3";
         return rshell();
     }
     vector<string> tokens;
@@ -63,10 +62,7 @@ int rshell()
     tokenizer<char_separator<char> > tok(cmdstring, dash);
     for (tokenizer<char_separator<char> >::iterator iter = tok.begin(); iter != tok.end(); iter++) {
         tokens.push_back(*iter);
-        cout << *iter << endl;
-    }
-    for (size_t i = 0; i < tokens.size(); i++) {
-        cout << tokens.at(i) << endl;
+        // cout << *iter << endl;
     }
     vector<string> tokensWithFlags;
     //vector<vector<string> > totalCMD;
@@ -79,7 +75,7 @@ int rshell()
             h++;
         }
         else if ((h + 1) < tokens.size() && tokens.at(h) == ";") {
-            cout << "CMD; Added " << tokensWithFlags.at(0) <<endl;
+            // cout << "CMD; Added " << tokensWithFlags.at(0) <<endl;
             if (tokensWithFlags.at(0) == "exit") return 0;
             //totalCMD.push_back(tokensWithFlags);
             totalCMD.push(tokensWithFlags);
@@ -96,60 +92,98 @@ int rshell()
             cmdPos++;
             h++;
         }
+        else if ((h + 1) < tokens.size() && tokens.at(h) == "|" && tokens.at(h + 1) == "|") {
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            tokensWithFlags.push_back("||");
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            h++;
+        }
         else tokensWithFlags.push_back(tokens.at(h));
     }
-    cout << "CMD Added " << tokensWithFlags.at(0) <<endl;
+    // cout << "CMD Added " << tokensWithFlags.at(0) <<endl;
     if (tokensWithFlags.at(0) == "exit") return 0;
     //totalCMD.push_back(tokensWithFlags);
     totalCMD.push(tokensWithFlags);
-    
-    for (size_t m = 0; m <= totalCMD.size(); m++) {
-    //while (!(totalCMD.empty())) {
+    //for (size_t m = 0; m <= totalCMD.size(); m++) {
+    while (!(totalCMD.empty())) {
         int pid = fork();
-        //bool notANDOR = true;
         //tokensWithFlags = totalCMD.back();
         //totalCMD.pop_back();
         tokensWithFlags = totalCMD.front();
         totalCMD.pop();
-        // if (tokensWithFlags.front() == "&&" || tokensWithFlags.front() == "||") {
-        //     notANDOR = false;
-        // }
-        //if (notANDOR) {
-            for (size_t i = 0; i < tokensWithFlags.size(); i++) {
-                cout << tokensWithFlags.at(i) << endl;
+        vector<string> nextToken;
+        bool isAND = false;
+        bool isOR = false;
+        if (!(totalCMD.empty())) {
+            nextToken = totalCMD.front();
+            // cout << "Next Tok: " << endl;
+            if (nextToken.front() == "&&") {
+                isAND = true;
+                // cout << "AND TRUE" << endl;
+                totalCMD.pop();
             }
-            char **ARGV = new char*[tokensWithFlags.size() + 1];
-            for (size_t j = 0; j < tokensWithFlags.size(); j++) {
-                ARGV[j] = new char[tokensWithFlags.at(j).size() + 1];
-                strcpy(ARGV[j], tokensWithFlags.at(j).c_str());
-                ARGV[tokensWithFlags.size()] = 0;
+            if (nextToken.front() == "||") {
+                isOR = true;
+                // cout << "OR TRUE" << endl;
+                totalCMD.pop();
             }
-            string CMD = ARGV[0];
-            cout << "CMD: " << CMD << endl;
-            //int pid = fork();
-            cout << "PID: " << pid << endl;
-            if (pid == -1) {
-                perror("error in fork");
+        }
+        
+        char **ARGV = new char*[tokensWithFlags.size() + 1];
+        for (size_t j = 0; j < tokensWithFlags.size(); j++) {
+            ARGV[j] = new char[tokensWithFlags.at(j).size() + 1];
+            strcpy(ARGV[j], tokensWithFlags.at(j).c_str());
+            ARGV[tokensWithFlags.size()] = 0;
+        }
+        string CMD = ARGV[0];
+        // cout << "CMD: " << CMD << endl;
+        // cout << "PID: " << pid << endl;
+        int status = 0;
+        if (pid == -1) {
+            perror("error in fork");
+            exit(1);
+            //return 1;
+        }
+        else if (pid == 0) {
+            
+            if (execvp(ARGV[0], ARGV) != 0) {
+                perror("error in execvp");
+                isOR = false;
+                isAND = false;
+                // if ((wait(&status) == -1)) 
                 exit(1);
-                //return 1;
             }
-            else if (pid == 0) {
-                
-                if (execvp(ARGV[0], ARGV) != 0) {
-                    perror("error in execvp");
-                    exit(1);
-                }
-                return 0;
+            return 0;
+        }
+        else if (wait(&status) == -1) {
+            perror("error in wait");
+            //exit(1);
+        }
+        else if (totalCMD.empty()) {
+            return rshell();
+        }
+        // if ((wait(&status) == -1)) {
+        //     exit(1);
+        // }
+        // cout << "STATUS: " << status << endl;
+        if (isOR && status == 0) {
+            // cout << "POP OR" << endl;
+            
+            if (!(totalCMD.empty())) {
+                totalCMD.pop();
             }
-            else if (wait(0) == -1) {
-                perror("error in wait");
-                //exit(1);
+        }
+        if (isAND && !(status == 0)) {
+            // cout << "POP AND" << endl;
+            
+            if (!(totalCMD.empty())) {
+                totalCMD.pop();
             }
-            else {
-                return rshell();
-                //exit(0);
-            }
-        //}
+        }
     }
 
     if (rshell() == 0) exit(0);
