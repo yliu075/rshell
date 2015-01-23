@@ -103,18 +103,18 @@ int rshell()
     //totalCMD.push_back(tokensWithFlags);
     totalCMD.push(tokensWithFlags);
     
-    //for (size_t m = 0; m <= totalCMD.size(); m++) {
-    while (!(totalCMD.empty())) {
-        // int pid = fork();
-        bool notANDOR = true;
+    for (size_t m = 0; m <= totalCMD.size(); m++) {
+    //while (!(totalCMD.empty())) {
+        int pid = fork();
+        //bool notANDOR = true;
         //tokensWithFlags = totalCMD.back();
         //totalCMD.pop_back();
         tokensWithFlags = totalCMD.front();
         totalCMD.pop();
-        if (tokensWithFlags.front() == "&&" || tokensWithFlags.front() == "||") {
-            notANDOR = false;
-        }
-        if (notANDOR) {
+        // if (tokensWithFlags.front() == "&&" || tokensWithFlags.front() == "||") {
+        //     notANDOR = false;
+        // }
+        //if (notANDOR) {
             for (size_t i = 0; i < tokensWithFlags.size(); i++) {
                 cout << tokensWithFlags.at(i) << endl;
             }
@@ -126,7 +126,8 @@ int rshell()
             }
             string CMD = ARGV[0];
             cout << "CMD: " << CMD << endl;
-            int pid = fork();
+            //int pid = fork();
+            cout << "PID: " << pid << endl;
             if (pid == -1) {
                 perror("error in fork");
                 exit(1);
@@ -138,16 +139,17 @@ int rshell()
                     perror("error in execvp");
                     exit(1);
                 }
+                return 0;
             }
             else if (wait(0) == -1) {
                 perror("error in wait");
-                exit(1);
+                //exit(1);
             }
             else {
                 return rshell();
                 //exit(0);
             }
-        }
+        //}
     }
 
     if (rshell() == 0) exit(0);
