@@ -10,7 +10,7 @@ rshell is a simple Unix command shell with the ability to:
 
 4. use and (&&)                     example: pwd && ls
 
-5. use arguments with spaces        example: ls-a-l
+5. use arguments without spaces     example: ls-a-l
 
 ###exit command
 The exit command (exit) allows user to quit rshell
