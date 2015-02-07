@@ -21,10 +21,15 @@ bool dash_a = false;
 bool dash_l = false;
 bool dash_R = false;
 bool haveFileOrFolder = false;
+string currLocation = ".";
+priority_queue<string, vector<string>, greater<string> > folderNamesR;
 
 bool isFolder(string &fileName) {
+    string tempName = currLocation;
+    if (currLocation != ".") tempName += fileName;
+    else tempName = fileName;
     struct stat s;
-    if (lstat(fileName.c_str(), &s) == -1) {
+    if (lstat(tempName.c_str(), &s) == -1) {
         perror("error in lstat");
         exit(1);
     }
@@ -36,8 +41,11 @@ bool isFolder(string &fileName) {
 }
 
 bool isExecutable(string &fileName) {
+    string tempName = currLocation;
+    if (currLocation != ".") tempName += fileName;
+    else tempName = fileName;
     struct stat s;
-    if (stat(fileName.c_str(), &s) == -1) {
+    if (stat(tempName.c_str(), &s) == -1) {
         perror("error in stat");
         exit(1);
     }
@@ -49,11 +57,11 @@ bool isExecutable(string &fileName) {
 }
 
 void LS_Out(priority_queue<string, vector<string>, greater<string> > fileFolderNamesSorted, size_t column1, size_t column2, size_t column3) {
-    while (!fileFolderNamesSorted.empty() && !(dash_R || dash_l)) {
+    while (!fileFolderNamesSorted.empty() && !dash_l) {
         string topName = fileFolderNamesSorted.top();
         if (isFolder(topName)) {
             cout << "\x1b[94m";
-            if (topName.at(0) == '.') cout << "\x1b[47m";
+            if (topName.at(0) == '.') cout << "\x1b[100m";
             cout  << setw(column1) << left;
         }
         else if (isExecutable(topName)) cout << "\x1b[92;49m" << setw(column1) << left;
@@ -65,7 +73,7 @@ void LS_Out(priority_queue<string, vector<string>, greater<string> > fileFolderN
             topName = fileFolderNamesSorted.top();
             if (isFolder(topName)) {
                 cout << "\x1b[94m";
-                if (topName.at(0) == '.') cout << "\x1b[47m";
+                if (topName.at(0) == '.') cout << "\x1b[100m";
                 cout  << setw(column2) << left;
             }
             else if (isExecutable(topName)) cout << "\x1b[92;49m" << setw(column2) << left;
@@ -77,7 +85,7 @@ void LS_Out(priority_queue<string, vector<string>, greater<string> > fileFolderN
                 topName = fileFolderNamesSorted.top();
                 if (isFolder(topName)) {
                     cout << "\x1b[94m";
-                    if (topName.at(0) == '.') cout << "\x1b[47m";
+                    if (topName.at(0) == '.') cout << "\x1b[100m";
                     cout  << setw(column3) << left;
                 }
                 else if (isExecutable(topName)) cout << "\x1b[92;49m" << setw(column3) << left;
@@ -86,12 +94,12 @@ void LS_Out(priority_queue<string, vector<string>, greater<string> > fileFolderN
                 fileFolderNamesSorted.pop();
             }
         }
-        cout << endl;
+        cout << "\x1b[39;49m" << endl;
     }
 }
 
 
-int my_LS(int argc, char** argv)
+void LS_Check_Flags(int argc, char** argv)
 {
     string Flags;
     priority_queue<string, vector<string>, greater<string> > inputFolder;
@@ -117,9 +125,7 @@ int my_LS(int argc, char** argv)
         else {
             haveFileOrFolder = true;
             inputFolder.push(*iter);
-            
         }
-        
     }
     //cout << inputFolder.size() << endl;
     // while (!inputFolder.empty()) {
@@ -127,14 +133,13 @@ int my_LS(int argc, char** argv)
     //     inputFolder.pop();
     // }
     //cout << argc << dash_a << dash_l << dash_R << haveFileOrFolder << endl << endl << endl;
-    
-    
-    
-    
-    
+}
+
+void my_LS(const char * location) {
+    currLocation = location;
     priority_queue<string, vector<string>, greater<string> > fileFolderNames;
     priority_queue<string, vector<string>, greater<string> > fileFolderNamesSorted;
-    DIR *currDir = opendir(".");
+    DIR *currDir = opendir(location);
     
     if (currDir == NULL) {
         perror("error in opendir");
@@ -163,6 +168,8 @@ int my_LS(int argc, char** argv)
         string entryName2 = fileFolderNames.top();
         fileFolderNames.pop();
         fileFolderNamesSorted.push(entryName2);
+        string entryName3 = entryName2;
+        if (dash_R && isFolder(entryName3)) folderNamesR.push(currLocation + "/" + entryName3);
         if ((fileFolderNamesSorted.size() % 3) == 1) {
             if (entryName2.size() > column1) column1 = entryName2.size() + 4;
         }
@@ -174,52 +181,29 @@ int my_LS(int argc, char** argv)
         }
     }
     LS_Out (fileFolderNamesSorted, column1, column2, column3);
-    // while (!fileFolderNamesSorted.empty() && !(dash_R || dash_l)) {
-    //     string topName = fileFolderNamesSorted.top();
-    //     if (isFolder(topName)) {
-    //         cout << "\x1b[94m";
-    //         if (topName.at(0) == '.') cout << "\x1b[47m";
-    //         cout  << setw(column1) << left;
-    //     }
-    //     else if (isExecutable(topName)) cout << "\x1b[92;49m" << setw(column1) << left;
-    //     else cout << "\x1b[39;49m" << setw(column1) << left;
-    //     cout << topName;
-    //     fileFolderNamesSorted.pop();
-        
-    //     if (!fileFolderNamesSorted.empty()) {
-    //         topName = fileFolderNamesSorted.top();
-    //         if (isFolder(topName)) {
-    //             cout << "\x1b[94m";
-    //             if (topName.at(0) == '.') cout << "\x1b[47m";
-    //             cout  << setw(column2) << left;
-    //         }
-    //         else if (isExecutable(topName)) cout << "\x1b[92;49m" << setw(column2) << left;
-    //         else cout << "\x1b[39;49m" << setw(column2) << left;
-    //         cout << topName;
-    //         fileFolderNamesSorted.pop();
-            
-    //         if (!fileFolderNamesSorted.empty()) {
-    //             topName = fileFolderNamesSorted.top();
-    //             if (isFolder(topName)) {
-    //                 cout << "\x1b[94m";
-    //                 if (topName.at(0) == '.') cout << "\x1b[47m";
-    //                 cout  << setw(column3) << left;
-    //             }
-    //             else if (isExecutable(topName)) cout << "\x1b[92;49m" << setw(column3) << left;
-    //             else cout << "\x1b[39;49m" << setw(column3) << left;
-    //             cout << topName;
-    //             fileFolderNamesSorted.pop();
-    //         }
-    //     }
-    //     cout << endl;
+    // return 0;
+}
+
+void LS_R() {
+    cout << endl;
+    string currFolder = folderNamesR.top();
+    folderNamesR.pop();
+    cout << currFolder << ":" << endl;
     
-    //struct stat currFile;
-    //stat()
-    return 0;
+    currLocation = currFolder;
+    my_LS(currLocation.c_str());
+    cout << endl;
+    if (!folderNamesR.empty()) LS_R();
 }
 
 int main(int argc, char** argv)
 {
-    //if 
-    return my_LS(argc, argv);
+    LS_Check_Flags(argc, argv);
+    if (dash_R) {
+        cout << currLocation << ":" << endl;
+        my_LS(".");
+        LS_R();
+    }
+    if (!(dash_R || dash_l)) my_LS(".");
+    return 0;
 }
