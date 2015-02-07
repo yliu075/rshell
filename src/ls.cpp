@@ -23,6 +23,9 @@ bool dash_R = false;
 bool haveFileOrFolder = false;
 string currLocation = ".";
 priority_queue<string, vector<string>, greater<string> > folderNamesR;
+priority_queue<string, vector<string>, greater<string> > inputFile;
+priority_queue<string, vector<string>, greater<string> > inputFolder;
+
 
 bool isFolder(string &fileName) {
     string tempName = currLocation;
@@ -102,7 +105,7 @@ void LS_Out(priority_queue<string, vector<string>, greater<string> > fileFolderN
 void LS_Check_Flags(int argc, char** argv)
 {
     string Flags;
-    priority_queue<string, vector<string>, greater<string> > inputFolder;
+    priority_queue<string, vector<string>, greater<string> > inputFileFolder;
     for (int j = 1; j < argc; j++) {
         if (argv[j][0] != '-') Flags += "()";
         Flags += argv[j];
@@ -124,46 +127,25 @@ void LS_Check_Flags(int argc, char** argv)
         }
         else {
             haveFileOrFolder = true;
-            inputFolder.push(*iter);
+            inputFileFolder.push(*iter);
         }
     }
-    //cout << inputFolder.size() << endl;
-    // while (!inputFolder.empty()) {
-    //     //cout << inputFolder.top() << " ";
-    //     inputFolder.pop();
-    // }
+    if (haveFileOrFolder)  {
+        while (!inputFileFolder.empty()) {
+            string tempFileFolder = inputFileFolder.top();
+            inputFileFolder.pop();
+            if (isFolder(tempFileFolder)) inputFolder.push(currLocation + "/" + tempFileFolder);
+            else inputFile.push(tempFileFolder);
+        }
+    }
     //cout << argc << dash_a << dash_l << dash_R << haveFileOrFolder << endl << endl << endl;
 }
 
-void my_LS(const char * location) {
-    currLocation = location;
-    priority_queue<string, vector<string>, greater<string> > fileFolderNames;
+void LS_Organize(priority_queue<string, vector<string>, greater<string> > fileFolderNames) {
     priority_queue<string, vector<string>, greater<string> > fileFolderNamesSorted;
-    DIR *currDir = opendir(location);
-    
-    if (currDir == NULL) {
-        perror("error in opendir");
-        exit(1);
-    }
-    
-    dirent *entry = readdir(currDir);
-    if (entry == NULL) {
-        perror("error in readdir");
-        exit(1);
-    }
-    
     size_t column1 = 0;
     size_t column2 = 0;
     size_t column3 = 0;
-    do {
-        string entryName = entry->d_name;
-        if (entryName.at(0) == '.' && !dash_a);
-        else {
-            fileFolderNames.push(entry->d_name);
-        }
-    } while ((entry = readdir(currDir)) != NULL);
-    closedir(currDir);
-    
     while (!fileFolderNames.empty()) {
         string entryName2 = fileFolderNames.top();
         fileFolderNames.pop();
@@ -184,6 +166,32 @@ void my_LS(const char * location) {
     // return 0;
 }
 
+void my_LS(const char * location) {
+    currLocation = location;
+    priority_queue<string, vector<string>, greater<string> > fileFolderNames;
+    DIR *currDir = opendir(location);
+    
+    if (currDir == NULL) {
+        perror("error in opendir");
+        exit(1);
+    }
+    
+    dirent *entry = readdir(currDir);
+    if (entry == NULL) {
+        perror("error in readdir");
+        exit(1);
+    }
+    do {
+        string entryName = entry->d_name;
+        if (entryName.at(0) == '.' && !dash_a);
+        else {
+            fileFolderNames.push(entry->d_name);
+        }
+    } while ((entry = readdir(currDir)) != NULL);
+    closedir(currDir);
+    LS_Organize(fileFolderNames);
+}
+
 void LS_R() {
     cout << endl;
     string currFolder = folderNamesR.top();
@@ -199,11 +207,22 @@ void LS_R() {
 int main(int argc, char** argv)
 {
     LS_Check_Flags(argc, argv);
-    if (dash_R) {
+    if (haveFileOrFolder) {
+        if (!inputFile.empty()) {
+            LS_Organize(inputFile);
+            cout << endl;
+        }
+        if (!inputFolder.empty()) {
+            folderNamesR = inputFolder;
+            LS_R();
+        }
+    }
+    else if (dash_R) {
         cout << currLocation << ":" << endl;
         my_LS(".");
         LS_R();
+        return 0;
     }
-    if (!(dash_R || dash_l)) my_LS(".");
+    if (!(dash_R || dash_l || haveFileOrFolder)) my_LS(".");
     return 0;
 }
