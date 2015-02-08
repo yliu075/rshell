@@ -34,3 +34,29 @@ $ bin/rshell
 3. cannot use gethostname() and getlogin() when running on Windows
 
 4. sometimes requires two exits to quit FIXED
+ 
+
+
+#ls command
+
+My ls command supports:
+
+1. -a flag
+2. -R flag
+3. -l flag
+4. optional files and folders
+5. using multiple flags at once such as -alR
+ 
+###installation
+to download and use ls:
+```
+$ git clone  http://github.com/yliu075/rshell.git
+$ cd rshell
+$ git checkout hw1
+$ make
+$ bin/ls
+```
+###known bugs
+
+1. using the -R flag with -a in any instance creates recursive bombs
+2. error with optional files and -l flag

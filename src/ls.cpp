@@ -84,6 +84,7 @@ bool isExecutable(string &fileName) {
     if (currLocation != "." && fileName.find(currLocation) == string::npos) tempName += fileName;
     else tempName = fileName;
     struct stat s;
+    // cout << "fileName: " << fileName << endl;
     if (stat(tempName.c_str(), &s) == -1) {
         perror("error in stat");
         exit(1);
@@ -142,10 +143,11 @@ void LS_l(priority_queue<string, vector<string>, greater<string> > fileFolderNam
     fileFolderNamesSorted.pop();
     struct stat file;
     string timeMod;
-    if (haveFileOrFolder) {
-        currName = currName.substr(2, currName.size() - 1);
-    }
-    if (stat(currName.c_str(), &file) == -1) {
+    // if (haveFileOrFolder && (currName.substr(0,1) == "./")) {
+    //     currName = currName.substr(2, currName.size() - 1);
+    // }
+    // cout << "currName: " << currName << " LOC: " << currLocation << endl;
+    if (stat((currName).c_str(), &file) == -1) {
         perror("error in stat");
         exit(1);
     }
@@ -158,7 +160,7 @@ void LS_l(priority_queue<string, vector<string>, greater<string> > fileFolderNam
     checkUser(currName);
     checkGroup(currName);
     checkOther(currName);
-    cout << " " << setw(3) << right << file.st_nlink << " " << setw(columnUser) << left << getpwuid(file.st_uid)->pw_name;
+    cout << " " << setw(4) << right << file.st_nlink << " " << setw(columnUser) << left << getpwuid(file.st_uid)->pw_name;
     cout << " " << setw(columnGroup) << left << (getgrgid(file.st_gid))->gr_name << " " << setw(6) << right << file.st_size;
     timeMod = ctime(&file.st_mtime);
     timeMod.erase(timeMod.size() - 1);
@@ -229,7 +231,9 @@ void LS_Organize(priority_queue<string, vector<string>, greater<string> > fileFo
         if (dash_R && entryName2.find(currLocation) == string::npos) {
             if (currLocation.at(currLocation.size() - 1) == '/') entryName2 = currLocation + entryName2;
             else if (currLocation != ".") entryName2 = currLocation + "/" + entryName2;
-            
+        }
+        else if (haveFileOrFolder && dash_l) {
+            entryName2 = currLocation + entryName2;
         }
         fileFolderNamesSorted.push(entryName2);
         string entryName3 = entryName2;
@@ -241,7 +245,8 @@ void LS_Organize(priority_queue<string, vector<string>, greater<string> > fileFo
         }
         if (dash_l) {
             struct stat file;
-            if (stat(entryName2.c_str(), &file) == -1) {
+            // cout << "EN2: " << entryName2 << " LOC: "<< currLocation << endl;
+            if (stat((entryName2).c_str(), &file) == -1) {
                 perror("error in stat");
                 exit(1);
             }
@@ -319,6 +324,7 @@ int main(int argc, char** argv)
             cout << endl;
         }
         if (!inputFolder.empty()) {
+            currLocation = inputFolder.top();
             folderNamesR = inputFolder;
             LS_R();
         }

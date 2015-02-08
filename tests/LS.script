@@ -1,0 +1,603 @@
+Script started on Sun 08 Feb 2015 03:19:40 AM UTC
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls #just ls
+[39;49mLICENSE    [39;49mLS.script                   [39;49mMakefile    [39;49m
+[39;49mREADME.md  [39;49mTHIS_IS_A_LONG_FILE_NAME    [94mbin/        [39;49m
+[94msrc/       [92;49mtest*                       [39;49mtest.cpp    [39;49m
+[92;49mtest.out*  [94mtests/                      [39;49mtodo        [39;49m
+[92;49mtok.out*   [39;49mtok_test.cpp                [39;49m
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls #just ls[K[K[K[K[K[K[K[K-a #-a flag
+[94m[100m./          [94m[100m../        [94m[100m.c9/                        [39;49m
+[94m[100m.git/       [39;49mLICENSE    [39;49mLS.script                   [39;49m
+[39;49mMakefile    [39;49mREADME.md  [39;49mTHIS_IS_A_LONG_FILE_NAME    [39;49m
+[94mbin/        [94msrc/       [92;49mtest*                       [39;49m
+[39;49mtest.cpp    [92;49mtest.out*  [94mtests/                      [39;49m
+[39;49mtodo        [92;49mtok.out*   [39;49mtok_test.cpp                [39;49m
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -a #-a flag[1P[1@l[C[C[C[1P flagl flag
+total: 88
+-rw-rw-r--    1 ubuntu   ubuntu    18027 Thu Jan 22 05:18:51 2015 [39;49mLICENSE[39;49m
+-rw-r--r--    1 ubuntu   ubuntu        0 Sun Feb  8 03:19:40 2015 [39;49mLS.script[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      316 Fri Feb  6 22:36:02 2015 [39;49mMakefile[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     1197 Sun Feb  8 01:38:59 2015 [39;49mREADME.md[39;49m
+-rw-r--r--    1 ubuntu   ubuntu        0 Sat Feb  7 01:45:06 2015 [39;49mTHIS_IS_A_LONG_FILE_NAME[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Sun Feb  8 03:17:38 2015 [94mbin/[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Fri Feb  6 22:36:02 2015 [94msrc/[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     8813 Fri Jan 23 14:04:25 2015 [92;49mtest*[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      815 Fri Jan 23 14:02:32 2015 [39;49mtest.cpp[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     8813 Fri Jan 23 14:02:52 2015 [92;49mtest.out*[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Sun Feb  8 01:33:21 2015 [94mtests/[39;49m
+-rw-r--r--    1 ubuntu   ubuntu       28 Sat Feb  7 07:33:10 2015 [39;49mtodo[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     9456 Thu Jan 22 07:43:01 2015 [92;49mtok.out*[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      740 Thu Jan 22 07:42:53 2015 [39;49mtok_test.cpp[39;49m
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -l #-l flag[1P[1@R[C[C[C[1P flagR flag
+.:
+[39;49mLICENSE    [39;49mLS.script                   [39;49mMakefile    [39;49m
+[39;49mREADME.md  [39;49mTHIS_IS_A_LONG_FILE_NAME    [94mbin/        [39;49m
+[94msrc/       [92;49mtest*                       [39;49mtest.cpp    [39;49m
+[92;49mtest.out*  [94mtests/                      [39;49mtodo        [39;49m
+[92;49mtok.out*   [39;49mtok_test.cpp                [39;49m
+
+bin/:
+[92;49mbin/ls*   [92;49mbin/rshell*   [39;49m
+
+
+src/:
+[39;49msrc/ls.cpp    [39;49msrc/main.cpp    [39;49m
+
+
+tests/:
+[94mtests/New Folder/   [39;49mtests/exec.script    [39;49mtests/valgrind_LS.script    [39;49m
+
+
+tests/New Folder/:
+[39;49mtests/New Folder/Untitled    [39;49mtests/New Folder/Untitled.1    [39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -R #-R flag[K[K[K[K[K[K[K[K[K[Kal[K -,[Kl #two flags
+total: 104
+drwxrwxr-x    7 ubuntu   ubuntu     4096 Sun Feb  8 03:19:40 2015 [94m[100m./[39;49m
+drwxr-xr-x   23 ubuntu   ubuntu     4096 Thu Jan 22 06:29:44 2015 [94m[100m../[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Thu Jan 22 05:19:25 2015 [94m[100m.c9/[39;49m
+drwxrwxr-x    8 ubuntu   ubuntu     4096 Sun Feb  8 01:18:48 2015 [94m[100m.git/[39;49m
+-rw-rw-r--    1 ubuntu   ubuntu    18027 Thu Jan 22 05:18:51 2015 [39;49mLICENSE[39;49m
+-rw-r--r--    1 ubuntu   ubuntu        0 Sun Feb  8 03:19:40 2015 [39;49mLS.script[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      316 Fri Feb  6 22:36:02 2015 [39;49mMakefile[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     1197 Sun Feb  8 01:38:59 2015 [39;49mREADME.md[39;49m
+-rw-r--r--    1 ubuntu   ubuntu        0 Sat Feb  7 01:45:06 2015 [39;49mTHIS_IS_A_LONG_FILE_NAME[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Sun Feb  8 03:17:38 2015 [94mbin/[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Fri Feb  6 22:36:02 2015 [94msrc/[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     8813 Fri Jan 23 14:04:25 2015 [92;49mtest*[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      815 Fri Jan 23 14:02:32 2015 [39;49mtest.cpp[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     8813 Fri Jan 23 14:02:52 2015 [92;49mtest.out*[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Sun Feb  8 01:33:21 2015 [94mtests/[39;49m
+-rw-r--r--    1 ubuntu   ubuntu       28 Sat Feb  7 07:33:10 2015 [39;49mtodo[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     9456 Thu Jan 22 07:43:01 2015 [92;49mtok.out*[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      740 Thu Jan 22 07:42:53 2015 [39;49mtok_test.cpp[39;49m
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -a -l #two flags[1P[1P[C[C[C[C[C[C[C[C[C[C[C[C no spaces
+total: 108
+drwxrwxr-x    7 ubuntu   ubuntu     4096 Sun Feb  8 03:19:40 2015 [94m[100m./[39;49m
+drwxr-xr-x   23 ubuntu   ubuntu     4096 Thu Jan 22 06:29:44 2015 [94m[100m../[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Thu Jan 22 05:19:25 2015 [94m[100m.c9/[39;49m
+drwxrwxr-x    8 ubuntu   ubuntu     4096 Sun Feb  8 01:18:48 2015 [94m[100m.git/[39;49m
+-rw-rw-r--    1 ubuntu   ubuntu    18027 Thu Jan 22 05:18:51 2015 [39;49mLICENSE[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     4096 Sun Feb  8 03:20:54 2015 [39;49mLS.script[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      316 Fri Feb  6 22:36:02 2015 [39;49mMakefile[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     1197 Sun Feb  8 01:38:59 2015 [39;49mREADME.md[39;49m
+-rw-r--r--    1 ubuntu   ubuntu        0 Sat Feb  7 01:45:06 2015 [39;49mTHIS_IS_A_LONG_FILE_NAME[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Sun Feb  8 03:17:38 2015 [94mbin/[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Fri Feb  6 22:36:02 2015 [94msrc/[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     8813 Fri Jan 23 14:04:25 2015 [92;49mtest*[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      815 Fri Jan 23 14:02:32 2015 [39;49mtest.cpp[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     8813 Fri Jan 23 14:02:52 2015 [92;49mtest.out*[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Sun Feb  8 01:33:21 2015 [94mtests/[39;49m
+-rw-r--r--    1 ubuntu   ubuntu       28 Sat Feb  7 07:33:10 2015 [39;49mtodo[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     9456 Thu Jan 22 07:43:01 2015 [92;49mtok.out*[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      740 Thu Jan 22 07:42:53 2015 [39;49mtok_test.cpp[39;49m
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -al #two flags no spaces[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KLi[KICENSE #with file
+[39;49mLICENSE    [39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls LICENSE #with file[K[K[K[K[K[K[K[K[K[KREADME.md Makefile #mutiple files[C[C[1@l
+[39;49mLICENSE    [39;49mMakefile    [39;49mREADME.md    [39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls LICENSE README.md Makefile #multiple files[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksrc #with dir
+
+src/:
+[39;49mls.cpp    [39;49mmain.cpp    [39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls src #with dir[K[K[K[K[K[K[K[K[Kbin #with multiple dirs
+
+bin/:
+[92;49mls*   [92;49mrshell*   [39;49m
+
+
+src/:
+[39;49mls.cpp    [39;49mmain.cpp    [39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls src bin #with multiple dirs[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KLICENSE Makefile README.md #multiple dirs + f iles
+[39;49mLICENSE    [39;49mMakefile    [39;49mREADME.md    [39;49m
+
+
+bin/:
+[92;49mls*   [92;49mrshell*   [39;49m
+
+
+src/:
+[39;49mls.cpp    [39;49mmain.cpp    [39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls src bin LICENSE Makefile README.md #multiple dirs + fiiles[K[K[K[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csrc bin #mu[K[Kd[Kfiles + dis[Krs
+[39;49mLICENSE    [39;49mMakefile    [39;49mREADME.md    [39;49m
+
+
+bin/:
+[92;49mls*   [92;49mrshell*   [39;49m
+
+
+src/:
+[39;49mls.cpp    [39;49mmain.cpp    [39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -aR # [KBUGS[K: a flag + R flag create bomb
+.:
+[94m[100m./          [94m[100m../        [94m[100m.c9/                        [39;49m
+[94m[100m.git/       [39;49mLICENSE    [39;49mLS.script                   [39;49m
+[39;49mMakefile    [39;49mREADME.md  [39;49mTHIS_IS_A_LONG_FILE_NAME    [39;49m
+[94mbin/        [94msrc/       [92;49mtest*                       [39;49m
+[39;49mtest.cpp    [92;49mtest.out*  [94mtests/                      [39;49m
+[39;49mtodo        [92;49mtok.out*   [39;49mtok_test.cpp                [39;49m
+
+../:
+[94m[100m.././               [94m[100m../../             [39;49m../.bash_aliases    [39;49m
+[39;49m../.bash_history    [39;49m../.bash_logout    [39;49m../.bashrc          [39;49m
+[94m[100m../.c9/             [94m[100m../.gem/           [39;49m../.gemrc           [39;49m
+[39;49m../.gitconfig       [39;49m../.gitignore      [39;49m../.hgignore        [39;49m
+[39;49m../.hgrc            [94m[100m../.node-gyp/      [94m[100m../.npm/            [39;49m
+[94m[100m../.nvm/            [39;49m../.profile        [94m[100m../.ssh/            [39;49m
+[94m[100m../lib/             [92;49m../rshell*         [94m[100m../workspace/       [39;49m
+
+
+../../:
+[94m[100m../.././   [94m[100m../../../   [94m[100m../../ubuntu/   [39;49m
+
+
+../../../:
+[94m[100m../../.././             [94m[100m../../../../   [92;49m../../../.dockerenv*   [39;49m
+[39;49m../../../.dockerinit    [94m[100m../../../bin/  [94m[100m../../../boot/         [39;49m
+[94m[100m../../../data/          [94m[100m../../../dev/  [94m[100m../../../etc/          [39;49m
+[94m[100m../../../home/          [94m[100m../../../lib/  [94m[100m../../../lib64/        [39;49m
+[94m[100m../../../lost+found/    [94m[100m../../../media/[94m[100m../../../mnt/          [39;49m
+[94m[100m../../../nix/           [94m[100m../../../opt/  [94m[100m../../../proc/         [39;49m
+[94m[100m../../../root/          [94m[100m../../../run/  [94m[100m../../../sbin/         [39;49m
+[94m[100m../../../srv/           [94m[100m../../../sys/  [94m[100m../../../tmp/          [39;49m
+[94m[100m../../../usr/           [94m[100m../../../var/  [39;49m
+
+
+../../../../:
+[94m[100m../../../.././             [94m[100m../../../../../   [92;49m../../../../.dockerenv*   [39;49m
+[39;49m../../../../.dockerinit    [94m[100m../../../../bin/  [94m[100m../../../../boot/         [39;49m
+[94m[100m../../../../data/          [94m[100m../../../../dev/  [94m[100m../../../../etc/          [39;49m
+[94m[100m../../../../home/          [94m[100m../../../../lib/  [94m[100m../../../../lib64/        [39;49m
+[94m[100m../../../../lost+found/    [94m[100m../../../../media/[94m[100m../../../../mnt/          [39;49m
+[94m[100m../../../../nix/           [94m[100m../../../../opt/  [94m[100m../../../../proc/         [39;49m
+[94m[100m../../../../root/          [94m[100m../../../../run/  [94m[100m../../../../sbin/         [39;49m
+[94m[100m../../../../srv/           [94m[100m../../../../sys/  [94m[100m../../../../tmp/          [39;49m
+[94m[100m../../../../usr/           [94m[100m../../../../var/  [39;49m
+
+
+../../../../../:
+[94m[100m../../../../.././             [94m[100m../../../../../../   [92;49m../../../../../.dockerenv*   [39;49m
+[39;49m../../../../../.dockerinit    [94m[100m../../../../../bin/  [94m[100m../../../../../boot/         [39;49m
+[94m[100m../../../../../data/          [94m[100m../../../../../dev/  [94m[100m../../../../../etc/          [39;49m
+[94m[100m../../../../../home/          [94m[100m../../../../../lib/  [94m[100m../../../../../lib64/        [39;49m
+[94m[100m../../../../../lost+found/    [94m[100m../../../../../media/[94m[100m../../../../../mnt/          [39;49m
+[94m[100m../../../../../nix/           [94m[100m../../../../../opt/  [94m[100m../../../../../proc/         [39;49m
+[94m[100m../../../../../root/          [94m[100m../../../../../run/  [94m[100m../../../../../sbin/         [39;49m
+[94m[100m../../../../../srv/           [94m[100m../../../../../sys/  [94m[100m../../../../../tmp/          [39;49m
+[94m[100m../../../../../usr/           [94m[100m../../../../../var/  [39;49m
+
+
+../../../../../../:
+[94m[100m../../../../../.././             [94m[100m../../../../../../../   [92;49m../../../../../../.dockerenv*   [39;49m
+[39;49m../../../../../../.dockerinit    [94m[100m../../../../../../bin/  [94m[100m../../../../../../boot/         [39;49m
+[94m[100m../../../../../../data/          [94m[100m../../../../../../dev/  [94m[100m../../../../../../etc/          [39;49m
+[94m[100m../../../../../../home/          [94m[100m../../../../../../lib/  [94m[100m../../../../../../lib64/        [39;49m
+[94m[100m../../../../../../lost+found/    [94m[100m../../../../../../media/[94m[100m../../../../../../mnt/          [39;49m
+[94m[100m../../../../../../nix/           [94m[100m../../../../../../opt/  [94m[100m../../../../../../proc/         [39;49m
+[94m[100m../../../../../../root/          [94m[100m../../../../../../run/  [94m[100m../../../../../../sbin/         [39;49m
+[94m[100m../../../../../../srv/           [94m[100m../../../../../../sys/  [94m[100m../../../../../../tmp/          [39;49m
+[94m[100m../../../../../../usr/           [94m[100m../../../../../../var/  [39;49m
+
+
+../../../../../../../:
+[94m[100m../../../../../../.././             [94m[100m../../../../../../../../   [92;49m../../../../../../../.dockerenv*   [39;49m
+[39;49m../../../../../../../.dockerinit    [94m[100m../../../../../../../bin/  [94m[100m../../../../../../../boot/         [39;49m
+[94m[100m../../../../../../../data/          [94m[100m../../../../../../../dev/  [94m[100m../../../../../../../etc/          [39;49m
+[94m[100m../../../../../../../home/          [94m[100m../../../../../../../lib/  [94m[100m../../../../../../../lib64/        [39;49m
+[94m[100m../../../../../../../lost+found/    [94m[100m../../../../../../../media/[94m[100m../../../../../../../mnt/          [39;49m
+[94m[100m../../../../../../../nix/           [94m[100m../../../../../../../opt/  [94m[100m../../../../../../../proc/         [39;49m
+[94m[100m../../../../../../../root/          [94m[100m../../../../../../../run/  [94m[100m../../../../../../../sbin/         [39;49m
+[94m[100m../../../../../../../srv/           [94m[100m../../../../../../../sys/  [94m[100m../../../../../../../tmp/          [39;49m
+[94m[100m../../../../../../../usr/           [94m[100m../../../../../../../var/  [39;49m
+
+
+../../../../../../../../:
+[94m[100m../../../../../../../.././             [94m[100m../../../../../../../../../   [92;49m../../../../../../../../.dockerenv*   [39;49m
+[39;49m../../../../../../../../.dockerinit    [94m[100m../../../../../../../../bin/  [94m[100m../../../../../../../../boot/         [39;49m
+[94m[100m../../../../../../../../data/          [94m[100m../../../../../../../../dev/  [94m[100m../../../../../../../../etc/          [39;49m
+[94m[100m../../../../../../../../home/          [94m[100m../../../../../../../../lib/  [94m[100m../../../../../../../../lib64/        [39;49m
+[94m[100m../../../../../../../../lost+found/    [94m[100m../../../../../../../../media/[94m[100m../../../../../../../../mnt/          [39;49m
+[94m[100m../../../../../../../../nix/           [94m[100m../../../../../../../../opt/  [94m[100m../../../../../../../../proc/         [39;49m
+[94m[100m../../../../../../../../root/          [94m[100m../../../../../../../../run/  [94m[100m../../../../../../../../sbin/         [39;49m
+[94m[100m../../../../../../../../srv/           [94m[100m../../../../../../../../sys/  [94m[100m../../../../../../../../tmp/          [39;49m
+[94m[100m../../../../../../../../usr/           [94m[100m../../../../../../../../var/  [39;49m
+
+
+../../../../../../../../../:
+[94m[100m../../../../../../../../.././             [94m[100m../../../../../../../../../../   [92;49m../../../../../../../../../.dockerenv*   [39;49m
+[39;49m../../../../../../../../../.dockerinit    [94m[100m../../../../../../../../../bin/  [94m[100m../../../../../../../../../boot/         [39;49m
+[94m[100m../../../../../../../../../data/          [94m[100m../../../../../../../../../dev/  [94m[100m../../../../../../../../../etc/          [39;49m
+[94m[100m../../../../../../../../../home/          [94m[100m../../../../../../../../../lib/  [94m[100m../../../../../../../../../lib64/        [39;49m
+[94m[100m../../../../../../../../../lost+found/    [94m[100m../../../../../../../../../media/[94m[100m../../../../../../../../../mnt/          [39;49m
+[94m[100m../../../../../../../../../nix/           [94m[100m../../../../../../../../../opt/  [94m[100m../../../../../../../../../proc/         [39;49m
+[94m[100m../../../../../../../../../root/          [94m[100m../../../../../../../../../run/  [94m[100m../../../../../../../../../sbin/         [39;49m
+[94m[100m../../../../../../../../../srv/           [94m[100m../../../../../../../../../sys/  [94m[100m../../../../../../../../../tmp/          [39;49m
+[94m[100m../../../../../../../../../usr/           [94m[100m../../../../../../../../../var/  [39;49m
+
+
+../../../../../../../../../../:
+[94m[100m../../../../../../../../../.././             [94m[100m../../../../../../../../../../../   [92;49m../../../../../../../../../../.dockerenv*   [39;49m
+[39;49m../../../../../../../../../../.dockerinit    [94m[100m../../../../../../../../../../bin/  [94m[100m../../../../../../../../../../boot/         [39;49m
+[94m[100m../../../../../../../../../../data/          [94m[100m../../../../../../../../../../dev/  [94m[100m../../../../../../../../../../etc/          [39;49m
+[94m[100m../../../../../../../../../../home/          [94m[100m../../../../../../../../../../lib/  [94m[100m../../../../../../../../../../lib64/        [39;49m
+[94m[100m../../../../../../../../../../lost+found/    [94m[100m../../../../../../../../../../media/[94m[100m../../../../../../../../../../mnt/          [39;49m
+[94m[100m../../../../../../../../../../nix/           [94m[100m../../../../../../../../../../opt/  [94m[100m../../../../../../../../../../proc/         [39;49m
+[94m[100m../../../../../../../../../../root/          [94m[100m../../../../../../../../../../run/  [94m[100m../../../../../../../../../../sbin/         [39;49m
+[94m[100m../../../../../../../../../../srv/           [94m[100m../../../../../../../../../../sys/  [94m[100m../../../../../../../../../../tmp/          [39;49m
+[94m[100m../../../../../../../../../../usr/           [94m[100m../../../../../../../../../../var/  [39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -aR #BUG: a flag + R flag create bomb[1@l[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kall 3 flags create bomb
+.:
+total: 124
+drwxrwxr-x    7 ubuntu   ubuntu     4096 Sun Feb  8 03:19:40 2015 [94m[100m./[39;49m
+drwxr-xr-x   23 ubuntu   ubuntu     4096 Thu Jan 22 06:29:44 2015 [94m[100m../[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Thu Jan 22 05:19:25 2015 [94m[100m.c9/[39;49m
+drwxrwxr-x    8 ubuntu   ubuntu     4096 Sun Feb  8 01:18:48 2015 [94m[100m.git/[39;49m
+-rw-rw-r--    1 ubuntu   ubuntu    18027 Thu Jan 22 05:18:51 2015 [39;49mLICENSE[39;49m
+-rw-r--r--    1 ubuntu   ubuntu    20480 Sun Feb  8 03:24:37 2015 [39;49mLS.script[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      316 Fri Feb  6 22:36:02 2015 [39;49mMakefile[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     1197 Sun Feb  8 01:38:59 2015 [39;49mREADME.md[39;49m
+-rw-r--r--    1 ubuntu   ubuntu        0 Sat Feb  7 01:45:06 2015 [39;49mTHIS_IS_A_LONG_FILE_NAME[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Sun Feb  8 03:17:38 2015 [94mbin/[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Fri Feb  6 22:36:02 2015 [94msrc/[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     8813 Fri Jan 23 14:04:25 2015 [92;49mtest*[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      815 Fri Jan 23 14:02:32 2015 [39;49mtest.cpp[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     8813 Fri Jan 23 14:02:52 2015 [92;49mtest.out*[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Sun Feb  8 01:33:21 2015 [94mtests/[39;49m
+-rw-r--r--    1 ubuntu   ubuntu       28 Sat Feb  7 07:33:10 2015 [39;49mtodo[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu     9456 Thu Jan 22 07:43:01 2015 [92;49mtok.out*[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      740 Thu Jan 22 07:42:53 2015 [39;49mtok_test.cpp[39;49m
+
+../:
+total: 116
+drwxr-xr-x   23 ubuntu   ubuntu     4096 Thu Jan 22 06:29:44 2015 [94m[100m.././[39;49m
+drwxr-xr-x   16 root     root       4096 Thu Jan 22 05:18:37 2015 [94m[100m../../[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      313 Thu May  1 13:01:42 2014 [39;49m../.bash_aliases[39;49m
+-rw-------    1 ubuntu   ubuntu    14137 Sun Feb  8 03:19:30 2015 [39;49m../.bash_history[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      220 Wed Apr  9 01:03:15 2014 [39;49m../.bash_logout[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     1665 Tue Nov  4 11:32:57 2014 [39;49m../.bashrc[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Thu Jan 22 05:19:23 2015 [94m[100m../.c9/[39;49m
+drwxrwxr-x    7 ubuntu   ubuntu     4096 Thu Nov  6 15:18:41 2014 [94m[100m../.gem/[39;49m
+-rw-r--r--    1 ubuntu   ubuntu       52 Thu May  1 13:01:42 2014 [39;49m../.gemrc[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      216 Thu Jan 22 05:18:49 2015 [39;49m../.gitconfig[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      508 Thu May  1 13:01:42 2014 [39;49m../.gitignore[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      508 Thu Nov  6 15:22:48 2014 [39;49m../.hgignore[39;49m
+-rw-r--r--    1 ubuntu   ubuntu       56 Thu Jan 22 05:18:49 2015 [39;49m../.hgrc[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Thu Nov  6 15:17:51 2014 [94m[100m../.node-gyp/[39;49m
+drwxr-xr-x  255 ubuntu   ubuntu    12288 Thu Nov  6 15:18:35 2014 [94m[100m../.npm/[39;49m
+drwxr-xr-x   12 ubuntu   ubuntu     4096 Sat Feb  7 06:20:24 2015 [94m[100m../.nvm/[39;49m
+-rw-r--r--    1 ubuntu   ubuntu      758 Thu Nov  6 14:51:28 2014 [39;49m../.profile[39;49m
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Thu Jan 22 05:24:57 2015 [94m[100m../.ssh/[39;49m
+drwxr-xr-x    3 ubuntu   ubuntu     4096 Thu Nov  6 15:22:48 2014 [94m[100m../lib/[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu    14247 Thu Jan 22 05:54:06 2015 [92;49m../rshell*[39;49m
+drwxrwxr-x    7 ubuntu   ubuntu     4096 Sun Feb  8 03:19:40 2015 [94m[100m../workspace/[39;49m
+
+
+../../:
+total: 12
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../[39;49m
+drwxr-xr-x   23 ubuntu ubuntu   4096 Thu Jan 22 06:29:44 2015 [94m[100m../../ubuntu/[39;49m
+
+
+../../../:
+total: 17308
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../[39;49m
+-rwxr-xr-x    1 root   root        0 Thu Jan 22 05:18:36 2015 [92;49m../../../.dockerenv*[39;49m
+-rwx------    1 root   root   17624490 Thu Jan 29 12:56:04 2015 [39;49m../../../.dockerinit[39;49m
+drwxr-xr-x    2 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../bin/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Apr 10 22:12:14 2014 [94m[100m../../../boot/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Nov  6 15:22:48 2014 [94m[100m../../../data/[39;49m
+drwxr-xr-x    4 root   root      360 Fri Feb  6 22:20:34 2015 [94m[100m../../../dev/[39;49m
+drwxr-xr-x  312 root   root     4096 Thu Jan 22 05:18:49 2015 [94m[100m../../../etc/[39;49m
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../home/[39;49m
+drwxr-xr-x   31 root   root     4096 Thu Nov  6 15:16:25 2014 [94m[100m../../../lib/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:42 2014 [94m[100m../../../lib64/[39;49m
+drwx------    2 root   root    16384 Thu Jan 22 05:18:43 2015 [94m[100m../../../lost+found/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../media/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../mnt/[39;49m
+drwxr-xr-x   10 root   root     4096 Tue Jan 20 14:57:04 2015 [94m[100m../../../nix/[39;49m
+drwxr-xr-x    4 root   root     4096 Thu Nov  6 15:21:55 2014 [94m[100m../../../opt/[39;49m
+dr-xr-xr-x 9922 root   root        0 Fri Feb  6 22:20:34 2015 [94m[100m../../../proc/[39;49m
+drwx------    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../root/[39;49m
+drwxr-xr-x   12 root   root     4096 Thu Nov  6 15:15:35 2014 [94m[100m../../../run/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Nov  6 15:15:12 2014 [94m[100m../../../sbin/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../srv/[39;49m
+dr-xr-xr-x   13 root   root        0 Wed Feb  4 15:20:44 2015 [94m[100m../../../sys/[39;49m
+drwxrwxrwx   12 root   root     4096 Sun Feb  8 03:22:50 2015 [94m[100m../../../tmp/[39;49m
+drwxr-xr-x  116 root   root     4096 Fri Jan 23 13:54:32 2015 [94m[100m../../../usr/[39;49m
+drwxr-xr-x   92 root   root     4096 Thu Jan 22 05:18:38 2015 [94m[100m../../../var/[39;49m
+
+
+../../../../:
+total: 17308
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../[39;49m
+-rwxr-xr-x    1 root   root        0 Thu Jan 22 05:18:36 2015 [92;49m../../../../.dockerenv*[39;49m
+-rwx------    1 root   root   17624490 Thu Jan 29 12:56:04 2015 [39;49m../../../../.dockerinit[39;49m
+drwxr-xr-x    2 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../bin/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Apr 10 22:12:14 2014 [94m[100m../../../../boot/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Nov  6 15:22:48 2014 [94m[100m../../../../data/[39;49m
+drwxr-xr-x    4 root   root      360 Fri Feb  6 22:20:34 2015 [94m[100m../../../../dev/[39;49m
+drwxr-xr-x  312 root   root     4096 Thu Jan 22 05:18:49 2015 [94m[100m../../../../etc/[39;49m
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../home/[39;49m
+drwxr-xr-x   31 root   root     4096 Thu Nov  6 15:16:25 2014 [94m[100m../../../../lib/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:42 2014 [94m[100m../../../../lib64/[39;49m
+drwx------    2 root   root    16384 Thu Jan 22 05:18:43 2015 [94m[100m../../../../lost+found/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../media/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../mnt/[39;49m
+drwxr-xr-x   10 root   root     4096 Tue Jan 20 14:57:04 2015 [94m[100m../../../../nix/[39;49m
+drwxr-xr-x    4 root   root     4096 Thu Nov  6 15:21:55 2014 [94m[100m../../../../opt/[39;49m
+dr-xr-xr-x 9921 root   root        0 Fri Feb  6 22:20:34 2015 [94m[100m../../../../proc/[39;49m
+drwx------    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../root/[39;49m
+drwxr-xr-x   12 root   root     4096 Thu Nov  6 15:15:35 2014 [94m[100m../../../../run/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Nov  6 15:15:12 2014 [94m[100m../../../../sbin/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../srv/[39;49m
+dr-xr-xr-x   13 root   root        0 Wed Feb  4 15:20:44 2015 [94m[100m../../../../sys/[39;49m
+drwxrwxrwx   12 root   root     4096 Sun Feb  8 03:22:50 2015 [94m[100m../../../../tmp/[39;49m
+drwxr-xr-x  116 root   root     4096 Fri Jan 23 13:54:32 2015 [94m[100m../../../../usr/[39;49m
+drwxr-xr-x   92 root   root     4096 Thu Jan 22 05:18:38 2015 [94m[100m../../../../var/[39;49m
+
+
+../../../../../:
+total: 17308
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../[39;49m
+-rwxr-xr-x    1 root   root        0 Thu Jan 22 05:18:36 2015 [92;49m../../../../../.dockerenv*[39;49m
+-rwx------    1 root   root   17624490 Thu Jan 29 12:56:04 2015 [39;49m../../../../../.dockerinit[39;49m
+drwxr-xr-x    2 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../bin/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Apr 10 22:12:14 2014 [94m[100m../../../../../boot/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Nov  6 15:22:48 2014 [94m[100m../../../../../data/[39;49m
+drwxr-xr-x    4 root   root      360 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../dev/[39;49m
+drwxr-xr-x  312 root   root     4096 Thu Jan 22 05:18:49 2015 [94m[100m../../../../../etc/[39;49m
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../home/[39;49m
+drwxr-xr-x   31 root   root     4096 Thu Nov  6 15:16:25 2014 [94m[100m../../../../../lib/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:42 2014 [94m[100m../../../../../lib64/[39;49m
+drwx------    2 root   root    16384 Thu Jan 22 05:18:43 2015 [94m[100m../../../../../lost+found/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../media/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../mnt/[39;49m
+drwxr-xr-x   10 root   root     4096 Tue Jan 20 14:57:04 2015 [94m[100m../../../../../nix/[39;49m
+drwxr-xr-x    4 root   root     4096 Thu Nov  6 15:21:55 2014 [94m[100m../../../../../opt/[39;49m
+dr-xr-xr-x 9920 root   root        0 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../proc/[39;49m
+drwx------    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../root/[39;49m
+drwxr-xr-x   12 root   root     4096 Thu Nov  6 15:15:35 2014 [94m[100m../../../../../run/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Nov  6 15:15:12 2014 [94m[100m../../../../../sbin/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../srv/[39;49m
+dr-xr-xr-x   13 root   root        0 Wed Feb  4 15:20:44 2015 [94m[100m../../../../../sys/[39;49m
+drwxrwxrwx   12 root   root     4096 Sun Feb  8 03:22:50 2015 [94m[100m../../../../../tmp/[39;49m
+drwxr-xr-x  116 root   root     4096 Fri Jan 23 13:54:32 2015 [94m[100m../../../../../usr/[39;49m
+drwxr-xr-x   92 root   root     4096 Thu Jan 22 05:18:38 2015 [94m[100m../../../../../var/[39;49m
+
+
+../../../../../../:
+total: 17308
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../[39;49m
+-rwxr-xr-x    1 root   root        0 Thu Jan 22 05:18:36 2015 [92;49m../../../../../../.dockerenv*[39;49m
+-rwx------    1 root   root   17624490 Thu Jan 29 12:56:04 2015 [39;49m../../../../../../.dockerinit[39;49m
+drwxr-xr-x    2 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../bin/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Apr 10 22:12:14 2014 [94m[100m../../../../../../boot/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Nov  6 15:22:48 2014 [94m[100m../../../../../../data/[39;49m
+drwxr-xr-x    4 root   root      360 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../dev/[39;49m
+drwxr-xr-x  312 root   root     4096 Thu Jan 22 05:18:49 2015 [94m[100m../../../../../../etc/[39;49m
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../home/[39;49m
+drwxr-xr-x   31 root   root     4096 Thu Nov  6 15:16:25 2014 [94m[100m../../../../../../lib/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:42 2014 [94m[100m../../../../../../lib64/[39;49m
+drwx------    2 root   root    16384 Thu Jan 22 05:18:43 2015 [94m[100m../../../../../../lost+found/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../media/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../mnt/[39;49m
+drwxr-xr-x   10 root   root     4096 Tue Jan 20 14:57:04 2015 [94m[100m../../../../../../nix/[39;49m
+drwxr-xr-x    4 root   root     4096 Thu Nov  6 15:21:55 2014 [94m[100m../../../../../../opt/[39;49m
+dr-xr-xr-x 9923 root   root        0 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../proc/[39;49m
+drwx------    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../root/[39;49m
+drwxr-xr-x   12 root   root     4096 Thu Nov  6 15:15:35 2014 [94m[100m../../../../../../run/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Nov  6 15:15:12 2014 [94m[100m../../../../../../sbin/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../srv/[39;49m
+dr-xr-xr-x   13 root   root        0 Wed Feb  4 15:20:44 2015 [94m[100m../../../../../../sys/[39;49m
+drwxrwxrwx   12 root   root     4096 Sun Feb  8 03:22:50 2015 [94m[100m../../../../../../tmp/[39;49m
+drwxr-xr-x  116 root   root     4096 Fri Jan 23 13:54:32 2015 [94m[100m../../../../../../usr/[39;49m
+drwxr-xr-x   92 root   root     4096 Thu Jan 22 05:18:38 2015 [94m[100m../../../../../../var/[39;49m
+
+
+../../../../../../../:
+total: 17308
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../[39;49m
+-rwxr-xr-x    1 root   root        0 Thu Jan 22 05:18:36 2015 [92;49m../../../../../../../.dockerenv*[39;49m
+-rwx------    1 root   root   17624490 Thu Jan 29 12:56:04 2015 [39;49m../../../../../../../.dockerinit[39;49m
+drwxr-xr-x    2 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../bin/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Apr 10 22:12:14 2014 [94m[100m../../../../../../../boot/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Nov  6 15:22:48 2014 [94m[100m../../../../../../../data/[39;49m
+drwxr-xr-x    4 root   root      360 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../dev/[39;49m
+drwxr-xr-x  312 root   root     4096 Thu Jan 22 05:18:49 2015 [94m[100m../../../../../../../etc/[39;49m
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../home/[39;49m
+drwxr-xr-x   31 root   root     4096 Thu Nov  6 15:16:25 2014 [94m[100m../../../../../../../lib/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:42 2014 [94m[100m../../../../../../../lib64/[39;49m
+drwx------    2 root   root    16384 Thu Jan 22 05:18:43 2015 [94m[100m../../../../../../../lost+found/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../../media/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../mnt/[39;49m
+drwxr-xr-x   10 root   root     4096 Tue Jan 20 14:57:04 2015 [94m[100m../../../../../../../nix/[39;49m
+drwxr-xr-x    4 root   root     4096 Thu Nov  6 15:21:55 2014 [94m[100m../../../../../../../opt/[39;49m
+dr-xr-xr-x 9921 root   root        0 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../proc/[39;49m
+drwx------    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../root/[39;49m
+drwxr-xr-x   12 root   root     4096 Thu Nov  6 15:15:35 2014 [94m[100m../../../../../../../run/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Nov  6 15:15:12 2014 [94m[100m../../../../../../../sbin/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../../srv/[39;49m
+dr-xr-xr-x   13 root   root        0 Wed Feb  4 15:20:44 2015 [94m[100m../../../../../../../sys/[39;49m
+drwxrwxrwx   12 root   root     4096 Sun Feb  8 03:22:50 2015 [94m[100m../../../../../../../tmp/[39;49m
+drwxr-xr-x  116 root   root     4096 Fri Jan 23 13:54:32 2015 [94m[100m../../../../../../../usr/[39;49m
+drwxr-xr-x   92 root   root     4096 Thu Jan 22 05:18:38 2015 [94m[100m../../../../../../../var/[39;49m
+
+
+../../../../../../../../:
+total: 17308
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../[39;49m
+-rwxr-xr-x    1 root   root        0 Thu Jan 22 05:18:36 2015 [92;49m../../../../../../../../.dockerenv*[39;49m
+-rwx------    1 root   root   17624490 Thu Jan 29 12:56:04 2015 [39;49m../../../../../../../../.dockerinit[39;49m
+drwxr-xr-x    2 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../bin/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Apr 10 22:12:14 2014 [94m[100m../../../../../../../../boot/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Nov  6 15:22:48 2014 [94m[100m../../../../../../../../data/[39;49m
+drwxr-xr-x    4 root   root      360 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../dev/[39;49m
+drwxr-xr-x  312 root   root     4096 Thu Jan 22 05:18:49 2015 [94m[100m../../../../../../../../etc/[39;49m
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../home/[39;49m
+drwxr-xr-x   31 root   root     4096 Thu Nov  6 15:16:25 2014 [94m[100m../../../../../../../../lib/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:42 2014 [94m[100m../../../../../../../../lib64/[39;49m
+drwx------    2 root   root    16384 Thu Jan 22 05:18:43 2015 [94m[100m../../../../../../../../lost+found/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../../../media/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../mnt/[39;49m
+drwxr-xr-x   10 root   root     4096 Tue Jan 20 14:57:04 2015 [94m[100m../../../../../../../../nix/[39;49m
+drwxr-xr-x    4 root   root     4096 Thu Nov  6 15:21:55 2014 [94m[100m../../../../../../../../opt/[39;49m
+dr-xr-xr-x 9922 root   root        0 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../proc/[39;49m
+drwx------    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../root/[39;49m
+drwxr-xr-x   12 root   root     4096 Thu Nov  6 15:15:35 2014 [94m[100m../../../../../../../../run/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Nov  6 15:15:12 2014 [94m[100m../../../../../../../../sbin/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../../../srv/[39;49m
+dr-xr-xr-x   13 root   root        0 Wed Feb  4 15:20:44 2015 [94m[100m../../../../../../../../sys/[39;49m
+drwxrwxrwx   12 root   root     4096 Sun Feb  8 03:22:50 2015 [94m[100m../../../../../../../../tmp/[39;49m
+drwxr-xr-x  116 root   root     4096 Fri Jan 23 13:54:32 2015 [94m[100m../../../../../../../../usr/[39;49m
+drwxr-xr-x   92 root   root     4096 Thu Jan 22 05:18:38 2015 [94m[100m../../../../../../../../var/[39;49m
+
+
+../../../../../../../../../:
+total: 17308
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../../[39;49m
+-rwxr-xr-x    1 root   root        0 Thu Jan 22 05:18:36 2015 [92;49m../../../../../../../../../.dockerenv*[39;49m
+-rwx------    1 root   root   17624490 Thu Jan 29 12:56:04 2015 [39;49m../../../../../../../../../.dockerinit[39;49m
+drwxr-xr-x    2 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../bin/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Apr 10 22:12:14 2014 [94m[100m../../../../../../../../../boot/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Nov  6 15:22:48 2014 [94m[100m../../../../../../../../../data/[39;49m
+drwxr-xr-x    4 root   root      360 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../dev/[39;49m
+drwxr-xr-x  312 root   root     4096 Thu Jan 22 05:18:49 2015 [94m[100m../../../../../../../../../etc/[39;49m
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../../home/[39;49m
+drwxr-xr-x   31 root   root     4096 Thu Nov  6 15:16:25 2014 [94m[100m../../../../../../../../../lib/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:42 2014 [94m[100m../../../../../../../../../lib64/[39;49m
+drwx------    2 root   root    16384 Thu Jan 22 05:18:43 2015 [94m[100m../../../../../../../../../lost+found/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../../../../media/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../../mnt/[39;49m
+drwxr-xr-x   10 root   root     4096 Tue Jan 20 14:57:04 2015 [94m[100m../../../../../../../../../nix/[39;49m
+drwxr-xr-x    4 root   root     4096 Thu Nov  6 15:21:55 2014 [94m[100m../../../../../../../../../opt/[39;49m
+dr-xr-xr-x 9922 root   root        0 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../proc/[39;49m
+drwx------    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../../root/[39;49m
+drwxr-xr-x   12 root   root     4096 Thu Nov  6 15:15:35 2014 [94m[100m../../../../../../../../../run/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Nov  6 15:15:12 2014 [94m[100m../../../../../../../../../sbin/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../../../../srv/[39;49m
+dr-xr-xr-x   13 root   root        0 Wed Feb  4 15:20:44 2015 [94m[100m../../../../../../../../../sys/[39;49m
+drwxrwxrwx   12 root   root     4096 Sun Feb  8 03:22:50 2015 [94m[100m../../../../../../../../../tmp/[39;49m
+drwxr-xr-x  116 root   root     4096 Fri Jan 23 13:54:32 2015 [94m[100m../../../../../../../../../usr/[39;49m
+drwxr-xr-x   92 root   root     4096 Thu Jan 22 05:18:38 2015 [94m[100m../../../../../../../../../var/[39;49m
+
+
+../../../../../../../../../../:
+total: 17308
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../.././[39;49m
+drwxr-xr-x  311 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../../../[39;49m
+-rwxr-xr-x    1 root   root        0 Thu Jan 22 05:18:36 2015 [92;49m../../../../../../../../../../.dockerenv*[39;49m
+-rwx------    1 root   root   17624490 Thu Jan 29 12:56:04 2015 [39;49m../../../../../../../../../../.dockerinit[39;49m
+drwxr-xr-x    2 root   root     4096 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../../bin/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Apr 10 22:12:14 2014 [94m[100m../../../../../../../../../../boot/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Nov  6 15:22:48 2014 [94m[100m../../../../../../../../../../data/[39;49m
+drwxr-xr-x    4 root   root      360 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../../dev/[39;49m
+drwxr-xr-x  312 root   root     4096 Thu Jan 22 05:18:49 2015 [94m[100m../../../../../../../../../../etc/[39;49m
+drwxr-xr-x   16 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../../../home/[39;49m
+drwxr-xr-x   31 root   root     4096 Thu Nov  6 15:16:25 2014 [94m[100m../../../../../../../../../../lib/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:42 2014 [94m[100m../../../../../../../../../../lib64/[39;49m
+drwx------    2 root   root    16384 Thu Jan 22 05:18:43 2015 [94m[100m../../../../../../../../../../lost+found/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../../../../../media/[39;49m
+drwxr-xr-x    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../../../mnt/[39;49m
+drwxr-xr-x   10 root   root     4096 Tue Jan 20 14:57:04 2015 [94m[100m../../../../../../../../../../nix/[39;49m
+drwxr-xr-x    4 root   root     4096 Thu Nov  6 15:21:55 2014 [94m[100m../../../../../../../../../../opt/[39;49m
+dr-xr-xr-x 9922 root   root        0 Fri Feb  6 22:20:34 2015 [94m[100m../../../../../../../../../../proc/[39;49m
+drwx------    3 root   root     4096 Thu Jan 22 05:18:37 2015 [94m[100m../../../../../../../../../../root/[39;49m
+drwxr-xr-x   12 root   root     4096 Thu Nov  6 15:15:35 2014 [94m[100m../../../../../../../../../../run/[39;49m
+drwxr-xr-x    2 root   root     4096 Thu Nov  6 15:15:12 2014 [94m[100m../../../../../../../../../../sbin/[39;49m
+drwxr-xr-x    2 root   root     4096 Mon Oct 20 03:33:21 2014 [94m[100m../../../../../../../../../../srv/[39;49m
+dr-xr-xr-x   13 root   root        0 Wed Feb  4 15:20:44 2015 [94m[100m../../../../../../../../../../sys/[39;49m
+drwxrwxrwx   12 root   root     4096 Sun Feb  8 03:22:50 2015 [94m[100m../../../../../../../../../../tmp/[39;49m
+drwxr-xr-x  116 root   root     4096 Fri Jan 23 13:54:32 2015 [94m[100m../../../../../../../../../../usr/[39;49m
+drwxr-xr-x   92 root   root     4096 Thu Jan 22 05:18:38 2015 [94m[100m../../../../../../../../../../var/[39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -a[Kl Makefile #file + l flag
+error in stat: No such file or directory
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -l Makefile #file + l flag[1P[1P[1P[1P[1P[1P[1P[1P[1@s[1@r[1@c[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1@d[1@i[1@r
+
+src/:
+total: 20
+-rw-r--r--    1 ubuntu   ubuntu    11592 Sun Feb  8 03:17:32 2015 [39;49msrc/ls.cpp[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     6132 Fri Jan 23 14:22:21 2015 [39;49msrc/main.cpp[39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls -l src #dir + l flag[C[1@ [1@b[1@i[1@n[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C + dir
+
+bin/:
+total: 152
+-rwxr-xr-x    1 ubuntu   ubuntu    69839 Sun Feb  8 03:17:38 2015 [92;49mbin/ls*[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu    79900 Sun Feb  8 03:17:37 2015 [92;49mbin/rshell*[39;49m
+
+
+src/:
+total: 20
+-rw-r--r--    1 ubuntu   ubuntu    11592 Sun Feb  8 03:17:32 2015 [39;49msrc/ls.cpp[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     6132 Fri Jan 23 14:22:21 2015 [39;49msrc/main.cpp[39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls bin -l src #dir + l flag + dir[C[1@a[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C+ dir[1@ [1@a[1@ [1@f[1@l[1@a[1@g[1@ 
+
+bin/:
+total: 160
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Sun Feb  8 03:17:38 2015 [94mbin/./[39;49m
+drwxrwxr-x    7 ubuntu   ubuntu     4096 Sun Feb  8 03:19:40 2015 [94mbin/../[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu    69839 Sun Feb  8 03:17:38 2015 [92;49mbin/ls*[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu    79900 Sun Feb  8 03:17:37 2015 [92;49mbin/rshell*[39;49m
+
+
+src/:
+total: 28
+drwxr-xr-x    2 ubuntu   ubuntu     4096 Fri Feb  6 22:36:02 2015 [94msrc/./[39;49m
+drwxrwxr-x    7 ubuntu   ubuntu     4096 Sun Feb  8 03:19:40 2015 [94msrc/../[39;49m
+-rw-r--r--    1 ubuntu   ubuntu    11592 Sun Feb  8 03:17:32 2015 [39;49msrc/ls.cpp[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     6132 Fri Jan 23 14:22:21 2015 [39;49msrc/main.cpp[39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ bin/ls bin -al src #dir + l flag + a flag + dir[1P[C[1@R[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1@R
+
+bin/:
+total: 152
+-rwxr-xr-x    1 ubuntu   ubuntu    69839 Sun Feb  8 03:17:38 2015 [92;49mbin/ls*[39;49m
+-rwxr-xr-x    1 ubuntu   ubuntu    79900 Sun Feb  8 03:17:37 2015 [92;49mbin/rshell*[39;49m
+
+
+src/:
+total: 20
+-rw-r--r--    1 ubuntu   ubuntu    11592 Sun Feb  8 03:17:32 2015 [39;49msrc/ls.cpp[39;49m
+-rw-r--r--    1 ubuntu   ubuntu     6132 Fri Jan 23 14:22:21 2015 [39;49msrc/main.cpp[39;49m
+
+[01;32myliu075@rshell[00m:[01;34m~/workspace[00m (master) $ exit
+exit
+
+Script done on Sun 08 Feb 2015 03:27:07 AM UTC
