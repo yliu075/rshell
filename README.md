@@ -45,7 +45,7 @@ My ls command supports:
 2. -R flag
 3. -l flag
 4. optional files and folders
-5. using multiple flags at once such as -alR
+5. using multiple flags at once such as -al
  
 ###installation
 to download and use ls:
@@ -58,5 +58,5 @@ $ bin/ls
 ```
 ###known bugs
 
-1. using the -R flag with -a in any instance creates recursive bombs
+1. using the -R flag with -a in any instance creates recursive bombs if user has root access, recursion is limited to 10 for user without root access
 2. error with optional files and -l flag
