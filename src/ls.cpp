@@ -11,8 +11,11 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <grp.h>
+#include <pwd.h>
 #include <dirent.h>
 #include <iomanip>
+#include <time.h>
 
 using namespace std;
 using namespace boost;
@@ -25,11 +28,44 @@ string currLocation = ".";
 priority_queue<string, vector<string>, greater<string> > folderNamesR;
 priority_queue<string, vector<string>, greater<string> > inputFile;
 priority_queue<string, vector<string>, greater<string> > inputFolder;
+int recurr = 0;
 
+void checkUser(string fileName) {
+    struct stat s;
+    if (stat(fileName.c_str(), &s) == -1) {
+        perror("error in stat");
+        exit(1);
+    }
+    cout << ((s.st_mode & S_IRUSR) ? "r" : "-");
+    cout << ((s.st_mode & S_IWUSR) ? "w" : "-");
+    cout << ((s.st_mode & S_IXUSR) ? "x" : "-");
+}
+
+void checkGroup(string fileName) {
+    struct stat s;
+    if (stat(fileName.c_str(), &s) == -1) {
+        perror("error in stat");
+        exit(1);
+    }
+    cout << ((s.st_mode & S_IRGRP) ? "r" : "-");
+    cout << ((s.st_mode & S_IWGRP) ? "w" : "-");
+    cout << ((s.st_mode & S_IXGRP) ? "x" : "-");
+}
+
+void checkOther(string fileName) {
+    struct stat s;
+    if (stat(fileName.c_str(), &s) == -1) {
+        perror("error in stat");
+        exit(1);
+    }
+    cout << ((s.st_mode & S_IROTH) ? "r" : "-");
+    cout << ((s.st_mode & S_IWOTH) ? "w" : "-");
+    cout << ((s.st_mode & S_IXOTH) ? "x" : "-");
+}
 
 bool isFolder(string &fileName) {
     string tempName = currLocation;
-    if (currLocation != ".") tempName += fileName;
+    if (currLocation != "." && fileName.find(currLocation) == string::npos) tempName += fileName;
     else tempName = fileName;
     struct stat s;
     if (lstat(tempName.c_str(), &s) == -1) {
@@ -45,7 +81,7 @@ bool isFolder(string &fileName) {
 
 bool isExecutable(string &fileName) {
     string tempName = currLocation;
-    if (currLocation != ".") tempName += fileName;
+    if (currLocation != "." && fileName.find(currLocation) == string::npos) tempName += fileName;
     else tempName = fileName;
     struct stat s;
     if (stat(tempName.c_str(), &s) == -1) {
@@ -101,6 +137,43 @@ void LS_Out(priority_queue<string, vector<string>, greater<string> > fileFolderN
     }
 }
 
+void LS_l(priority_queue<string, vector<string>, greater<string> > fileFolderNamesSorted, size_t columnUser, size_t columnGroup) {
+    string currName = fileFolderNamesSorted.top();
+    fileFolderNamesSorted.pop();
+    struct stat file;
+    string timeMod;
+    if (haveFileOrFolder) {
+        currName = currName.substr(2, currName.size() - 1);
+    }
+    if (stat(currName.c_str(), &file) == -1) {
+        perror("error in stat");
+        exit(1);
+    }
+    // cout << ((isFolder(currName)) ? "d" : "-" );
+    if (isFolder((currName))) {
+        cout << "d";
+        currName.erase(currName.size() - 1);
+    }
+    else cout << "-";
+    checkUser(currName);
+    checkGroup(currName);
+    checkOther(currName);
+    cout << " " << setw(3) << right << file.st_nlink << " " << setw(columnUser) << left << getpwuid(file.st_uid)->pw_name;
+    cout << " " << setw(columnGroup) << left << (getgrgid(file.st_gid))->gr_name << " " << setw(6) << right << file.st_size;
+    timeMod = ctime(&file.st_mtime);
+    timeMod.erase(timeMod.size() - 1);
+    cout << " " << timeMod << " ";
+    if (isFolder(currName)) {
+        cout << "\x1b[94m";
+        if (currName.at(0) == '.') cout << "\x1b[100m";
+    }
+    else if (isExecutable(currName)) cout << "\x1b[92;49m";
+    else cout << "\x1b[39;49m";
+    cout << currName;
+    cout << "\x1b[39;49m";
+    cout << endl;
+    if (!fileFolderNamesSorted.empty()) LS_l(fileFolderNamesSorted, columnUser, columnGroup);
+}
 
 void LS_Check_Flags(int argc, char** argv)
 {
@@ -110,12 +183,12 @@ void LS_Check_Flags(int argc, char** argv)
         if (argv[j][0] != '-') Flags += "()";
         Flags += argv[j];
     }
-    //cout << Flags << endl;
+    // cout << Flags << endl;
     bool FlagsNext = false;
     char_separator<char> dash("()","- ");
     tokenizer<char_separator<char> > tok(Flags, dash);
     for (tokenizer<char_separator<char> >::iterator iter = tok.begin(); iter != tok.end(); iter++) {
-        //cout << *iter << endl;
+        // cout << *iter << endl;
         if (*iter == "-" && !FlagsNext) FlagsNext = true;
         else if (FlagsNext) {
             for (size_t k = 0; k < (*iter).length(); k++) {
@@ -134,11 +207,12 @@ void LS_Check_Flags(int argc, char** argv)
         while (!inputFileFolder.empty()) {
             string tempFileFolder = inputFileFolder.top();
             inputFileFolder.pop();
-            if (isFolder(tempFileFolder)) inputFolder.push(currLocation + "/" + tempFileFolder);
+            if (isFolder(tempFileFolder) && tempFileFolder.find(currLocation) == string::npos) {
+                inputFolder.push(tempFileFolder);
+            }
             else inputFile.push(tempFileFolder);
         }
     }
-    //cout << argc << dash_a << dash_l << dash_R << haveFileOrFolder << endl << endl << endl;
 }
 
 void LS_Organize(priority_queue<string, vector<string>, greater<string> > fileFolderNames) {
@@ -146,24 +220,51 @@ void LS_Organize(priority_queue<string, vector<string>, greater<string> > fileFo
     size_t column1 = 0;
     size_t column2 = 0;
     size_t column3 = 0;
+    size_t columnUser = 0;
+    size_t columnGroup = 0;
+    blksize_t totalBlock = 0;
     while (!fileFolderNames.empty()) {
         string entryName2 = fileFolderNames.top();
         fileFolderNames.pop();
+        if (dash_R && entryName2.find(currLocation) == string::npos) {
+            if (currLocation.at(currLocation.size() - 1) == '/') entryName2 = currLocation + entryName2;
+            else if (currLocation != ".") entryName2 = currLocation + "/" + entryName2;
+            
+        }
         fileFolderNamesSorted.push(entryName2);
         string entryName3 = entryName2;
-        if (dash_R && isFolder(entryName3)) folderNamesR.push(currLocation + "/" + entryName3);
-        if ((fileFolderNamesSorted.size() % 3) == 1) {
+        if (dash_R && isFolder(entryName3) ) {
+            if ((entryName3.find(currLocation) == string::npos) ||
+                (entryName3.substr(0, currLocation.size() ) == currLocation))
+                folderNamesR.push(entryName3);
+            else folderNamesR.push(currLocation + "/" + entryName3);
+        }
+        if (dash_l) {
+            struct stat file;
+            if (stat(entryName2.c_str(), &file) == -1) {
+                perror("error in stat");
+                exit(1);
+            }
+            if (strlen((getpwuid(file.st_uid))->pw_name) > columnUser) columnUser = strlen((getpwuid(file.st_uid))->pw_name) + 2; 
+            if (strlen((getgrgid(file.st_gid))->gr_name) > columnGroup) columnGroup = strlen((getgrgid(file.st_gid))->gr_name) + 2;
+            totalBlock += file.st_blocks;
+        }
+        if (!dash_l && ((fileFolderNamesSorted.size() % 3) == 1)) {
             if (entryName2.size() > column1) column1 = entryName2.size() + 4;
         }
-        else if ((fileFolderNamesSorted.size() % 3) == 2) {
+        else if (!dash_l && ((fileFolderNamesSorted.size() % 3) == 2)) {
             if (entryName2.size() > column2) column2 = entryName2.size() + 4;
         }
-        else if ((fileFolderNamesSorted.size() % 3) == 0) {
+        else if (!dash_l && ((fileFolderNamesSorted.size() % 3) == 0)) {
             if (entryName2.size() > column3) column3 = entryName2.size() + 4;
         }
     }
-    LS_Out (fileFolderNamesSorted, column1, column2, column3);
-    // return 0;
+    
+    if (dash_l) {
+        cout << "total: " << totalBlock/2 << endl;
+        LS_l(fileFolderNamesSorted, columnUser, columnGroup);
+    }
+    else if (!(dash_l)) LS_Out (fileFolderNamesSorted, column1, column2, column3);
 }
 
 void my_LS(const char * location) {
@@ -188,20 +289,25 @@ void my_LS(const char * location) {
             fileFolderNames.push(entry->d_name);
         }
     } while ((entry = readdir(currDir)) != NULL);
-    closedir(currDir);
+    if (closedir(currDir) == -1) {
+        perror("error in closedir");
+        exit(1);
+    }
     LS_Organize(fileFolderNames);
 }
 
 void LS_R() {
     cout << endl;
-    string currFolder = folderNamesR.top();
+    string currFolder;
+    currFolder = folderNamesR.top();
     folderNamesR.pop();
     cout << currFolder << ":" << endl;
     
     currLocation = currFolder;
     my_LS(currLocation.c_str());
     cout << endl;
-    if (!folderNamesR.empty()) LS_R();
+    recurr++;
+    if (!folderNamesR.empty() && recurr < 10) LS_R();
 }
 
 int main(int argc, char** argv)
@@ -223,6 +329,6 @@ int main(int argc, char** argv)
         LS_R();
         return 0;
     }
-    if (!(dash_R || dash_l || haveFileOrFolder)) my_LS(".");
+    if (!dash_R && !haveFileOrFolder) my_LS(".");
     return 0;
 }
