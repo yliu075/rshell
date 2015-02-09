@@ -58,5 +58,5 @@ $ bin/ls
 ```
 ###known bugs
 
-1. using the -R flag with -a in any instance creates recursive bombs if user has root access, recursion is limited to 10 for user without root access
+1. using the -R flag with -a in any instance creates recursive bombs if user has root access, recursion is limited to 10 for user without root access FIXED
 2. error with optional files and -l flag
