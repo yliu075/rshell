@@ -237,7 +237,7 @@ void LS_Organize(priority_queue<string, vector<string>, greater<string> > fileFo
         }
         fileFolderNamesSorted.push(entryName2);
         string entryName3 = entryName2;
-        if (dash_R && isFolder(entryName3) ) {
+        if (dash_R && isFolder(entryName3)) {
             if ((entryName3.find(currLocation) == string::npos) ||
                 (entryName3.substr(0, currLocation.size() ) == currLocation))
                 folderNamesR.push(entryName3);
@@ -306,6 +306,13 @@ void LS_R() {
     string currFolder;
     currFolder = folderNamesR.top();
     folderNamesR.pop();
+    //cout << "CurrFolder: " << currFolder << endl;
+    while ((currFolder.substr(currFolder.size() - 2, currFolder.size() - 1 ) == "./") ||
+            (currLocation.size() > 3 && currFolder.substr(currFolder.size() - 3, currFolder.size() - 1 ) == "../")) {
+        currFolder = folderNamesR.top();
+        folderNamesR.pop();
+        //cout << "CurrFolder: " << currFolder << endl;
+    }
     cout << currFolder << ":" << endl;
     
     currLocation = currFolder;
