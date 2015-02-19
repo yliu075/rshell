@@ -63,7 +63,7 @@ int rshell()
         return rshell();
     }
     vector<string> tokens;
-    char_separator<char> dash("SPACE","-|&; ");
+    char_separator<char> dash("SPACE","-|&"; ");
     // char_separator<char> dash(" ","-|&;<>");
     tokenizer<char_separator<char> > tok(cmdstring, dash);
     for (tokenizer<char_separator<char> >::iterator iter = tok.begin(); iter != tok.end(); iter++) {
@@ -156,6 +156,10 @@ int rshell()
             tokensWithFlags.clear();
             cmdPos++;
             // h++;
+            tokensWithFlags.push_back(tokens.at(h));
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            // h++;
         }
         else if ((h + 1) < tokens.size() && tokens.at(h) == "<<<") {
             totalCMD.push(tokensWithFlags);
@@ -165,6 +169,10 @@ int rshell()
             totalCMD.push(tokensWithFlags);
             tokensWithFlags.clear();
             cmdPos++;
+            // h++;
+            tokensWithFlags.push_back(tokens.at(h));
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
             // h++;
         }
         
@@ -274,6 +282,7 @@ int rshell()
         }
         else if (pid == 0) {////////////////////////////////////////////////////
             if (isIn1) {
+                // cout << "isIn1" << endl;
                 if ((fdIn = dup(0)) == -1) {
                     perror("error in dup");
                     exit(1);
@@ -289,6 +298,7 @@ int rshell()
             }
             if (isOut1) {
                 // fdOut = dup(1);
+                // cout << "isOut1" << endl;
                 if ((fdOut = dup(1)) == -1) {
                     perror("error in dup");
                     exit(1);
@@ -307,7 +317,7 @@ int rshell()
                 }
             }
             else if (isOut2) {
-                // fdOut = dup(1);
+                // cout << "isOut2" << endl;
                 if ((fdOut = dup(1)) == -1) {
                     perror("error in dup");
                     exit(1);
@@ -322,7 +332,7 @@ int rshell()
                 }
             }
             if (execvp(ARGV[0], ARGV) != 0) {
-                cerr << "ERR CMD: " << ARGV[0] << endl;
+                // cerr << "ERR CMD: " << ARGV[0] << endl;
                 perror("error in execvp");
                 isOR = false;
                 isAND = false;
