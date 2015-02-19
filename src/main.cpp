@@ -127,10 +127,11 @@ int rshell()
             totalCMD.push(tokensWithFlags);
             tokensWithFlags.clear();
             cmdPos++;
-            tokensWithFlags.push_back(tokens.at(h + 1));
+            // h++;
+            tokensWithFlags.push_back(tokens.at(h));
             totalCMD.push(tokensWithFlags);
             tokensWithFlags.clear();
-            h++;
+            // h++;
         }
         else if ((h + 1) < tokens.size() && tokens.at(h) == ">>") {
             totalCMD.push(tokensWithFlags);
@@ -169,21 +170,11 @@ int rshell()
         
         else tokensWithFlags.push_back(tokens.at(h));
     }
-    // cout << "TOK ADDED: " << endl;
-    // while (!totalCMD.empty()) {
-    //     vector<string> v = totalCMD.front();
-    //     for (size_t i = 0; i < v.size(); i++) {
-    //         cout << v.at(i) << ' ';
-    //     }
-    //     cout << endl;
-    //     totalCMD.pop();
-    // }
-    // cout << "ENDED" << endl;
-    // cout << "CMD Added " << tokensWithFlags.at(0) <<endl;
     if (tokensWithFlags.at(0) == "exit") return 0;
     //totalCMD.push_back(tokensWithFlags);
     totalCMD.push(tokensWithFlags);
     //for (size_t m = 0; m <= totalCMD.size(); m++) {
+    ////////////////////////////////////////////////////////////////////////////
     while (!(totalCMD.empty())) {
         int fd[2];
         if (pipe(fd) == -1) {
@@ -198,15 +189,17 @@ int rshell()
         vector<string> nextToken;
         bool isAND = false;
         bool isOR = false;
-        bool isIn1 = false;
-        bool isIn2 = false;
         bool isOut1 = false;
-        bool isOut3 = false;
+        bool isOut2 = false;
+        bool isIn1 = false;
+        bool isIn3 = false;
         bool isPipe = false;
         const char *outFile;
-        // int fdIn;
+        const char *inFile;
+        int fdIn;
         int fdOut;
         int fdo;
+        int fdi;
         if (!(totalCMD.empty())) {
             nextToken = totalCMD.front();
             // cout << "Next Tok: " << endl;
@@ -221,16 +214,30 @@ int rshell()
                 totalCMD.pop();
             }
             if (nextToken.front() == "<") {
-                isOut1 = true;
+                isIn1 = true;
                 cout << "is <" << endl;
+                totalCMD.pop();
+                totalCMD.pop();
+                if (!(totalCMD.empty())) {
+                    inFile = totalCMD.front().front().c_str();
+                    totalCMD.pop();
+                }
+                else return rshell();
             }
             if (nextToken.front() == ">") {
-                isIn1 = true;
+                isOut1 = true;
                 cout << "is >" << endl;
+                totalCMD.pop();
+                totalCMD.pop();
+                if (!(totalCMD.empty())) {
+                    outFile = totalCMD.front().front().c_str();
+                    totalCMD.pop();
+                }
+                else return rshell();
             }
             if (nextToken.front() == ">>") {
-                isIn2 = true;
-                cout << "is >>";
+                isOut2 = true;
+                cout << "is >>" << endl;
                 totalCMD.pop();
                 totalCMD.pop();
                 if (!(totalCMD.empty())) {
@@ -244,10 +251,10 @@ int rshell()
                 cout << "is |" << endl;
             }
             if (nextToken.front() == "<<<") {
-                isOut3 = true;
+                isIn3 = true;
                 cout << "is <<<" << endl;
             }
-            cout <<isIn1<<isIn2<<isOut1<<isOut3<<isPipe<<endl;
+            cout <<isOut1<<isOut2<<isIn1<<isIn3<<isPipe<<endl;
         }
         
         char **ARGV = new char*[tokensWithFlags.size() + 1];
@@ -265,14 +272,47 @@ int rshell()
             exit(1);
             //return 1;
         }
-        else if (pid == 0) {
-            if (isIn2) {
-                fdOut = dup(1);
+        else if (pid == 0) {////////////////////////////////////////////////////
+            if (isIn1) {
+                if ((fdIn = dup(0)) == -1) {
+                    perror("error in dup");
+                    exit(1);
+                }
+                if ((fdi = open(inFile, O_RDONLY)) == -1) {
+                    perror("error in open");
+                    exit(1);
+                }
+                if (dup2(fdi, 0) == -1) {
+                    perror("error in dup2");
+                    exit(1);
+                }
+            }
+            if (isOut1) {
+                // fdOut = dup(1);
                 if ((fdOut = dup(1)) == -1) {
                     perror("error in dup");
                     exit(1);
                 }
-                if ((fdo = open(outFile, O_WRONLY | O_CREAT)) == -1) {
+                if ((fdo = open(outFile, O_WRONLY | O_CREAT, 0666)) == -1) {
+                    perror("error in open");
+                    exit(1);
+                }
+                if (truncate(outFile, 0) == -1) {
+                    perror("error in truncate");
+                    exit(1);
+                }
+                if (dup2(fdo, 1) == -1) {
+                    perror("error in dup2");
+                    exit(1);
+                }
+            }
+            else if (isOut2) {
+                // fdOut = dup(1);
+                if ((fdOut = dup(1)) == -1) {
+                    perror("error in dup");
+                    exit(1);
+                }
+                if ((fdo = open(outFile, O_WRONLY | O_APPEND | O_CREAT, 0666)) == -1) {
                     perror("error in open");
                     exit(1);
                 }
