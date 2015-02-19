@@ -8,6 +8,8 @@
 #include <boost/tokenizer.hpp>
 #include <vector>
 #include <queue>
+#include <fcntl.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -18,12 +20,12 @@ using namespace boost;
 
 int rshell()
 {
-    char host[64];
-    char *login = getlogin();
-    gethostname(host,sizeof host);
-    cout << login << '@' << host << "$ ";
+    // char host[64];
+    // char *login = getlogin();
+    // gethostname(host,sizeof host);
+    // cout << login << '@' << host << "$ ";
     
-    // cout << "$ ";
+    cout << "$ ";
     
     string cmdstring;
     getline(cin, cmdstring);
@@ -31,6 +33,9 @@ int rshell()
         return rshell();
     }
     if (cmdstring.find('#') != string::npos) {
+        if (cmdstring.find('#') == 0) {
+            return rshell();
+        }
         cmdstring.erase(cmdstring.find('#'), cmdstring.size() - 1);
     }
     while (cmdstring.at(0) == ' ') {
@@ -59,6 +64,7 @@ int rshell()
     }
     vector<string> tokens;
     char_separator<char> dash("SPACE","-|&; ");
+    // char_separator<char> dash(" ","-|&;<>");
     tokenizer<char_separator<char> > tok(cmdstring, dash);
     for (tokenizer<char_separator<char> >::iterator iter = tok.begin(); iter != tok.end(); iter++) {
         tokens.push_back(*iter);
@@ -69,6 +75,7 @@ int rshell()
     queue<vector<string> > totalCMD;
     size_t cmdPos = 0;
     for (size_t h = 0; h < tokens.size(); h++) {
+        cerr << "tok now: " << tokens.at(h) << endl;
         if (tokens.at(h) == "-" &&  (h + 1) < tokens.size()) {
             string temp = tokens.at(h) + tokens.at(h + 1);
             tokensWithFlags.push_back(temp);
@@ -102,14 +109,87 @@ int rshell()
             cmdPos++;
             h++;
         }
+        else if ((h + 1) < tokens.size() && tokens.at(h) == "|") {
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            tokensWithFlags.push_back("|");
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            // h++;
+        }
+        else if ((h + 1) < tokens.size() && tokens.at(h) == ">") {
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            tokensWithFlags.push_back(">");
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            tokensWithFlags.push_back(tokens.at(h + 1));
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            h++;
+        }
+        else if ((h + 1) < tokens.size() && tokens.at(h) == ">>") {
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            tokensWithFlags.push_back(">>");
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            // h++;
+            tokensWithFlags.push_back(tokens.at(h));
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            // h++;
+        }
+        else if ((h + 1) < tokens.size() && tokens.at(h) == "<") {
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            tokensWithFlags.push_back("<");
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            // h++;
+        }
+        else if ((h + 1) < tokens.size() && tokens.at(h) == "<<<") {
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            tokensWithFlags.push_back("<<<");
+            totalCMD.push(tokensWithFlags);
+            tokensWithFlags.clear();
+            cmdPos++;
+            // h++;
+        }
+        
         else tokensWithFlags.push_back(tokens.at(h));
     }
+    // cout << "TOK ADDED: " << endl;
+    // while (!totalCMD.empty()) {
+    //     vector<string> v = totalCMD.front();
+    //     for (size_t i = 0; i < v.size(); i++) {
+    //         cout << v.at(i) << ' ';
+    //     }
+    //     cout << endl;
+    //     totalCMD.pop();
+    // }
+    // cout << "ENDED" << endl;
     // cout << "CMD Added " << tokensWithFlags.at(0) <<endl;
     if (tokensWithFlags.at(0) == "exit") return 0;
     //totalCMD.push_back(tokensWithFlags);
     totalCMD.push(tokensWithFlags);
     //for (size_t m = 0; m <= totalCMD.size(); m++) {
     while (!(totalCMD.empty())) {
+        int fd[2];
+        if (pipe(fd) == -1) {
+            perror("error in pipe");
+            exit(1);
+        }
         int pid = fork();
         //tokensWithFlags = totalCMD.back();
         //totalCMD.pop_back();
@@ -118,6 +198,15 @@ int rshell()
         vector<string> nextToken;
         bool isAND = false;
         bool isOR = false;
+        bool isIn1 = false;
+        bool isIn2 = false;
+        bool isOut1 = false;
+        bool isOut3 = false;
+        bool isPipe = false;
+        const char *outFile;
+        // int fdIn;
+        int fdOut;
+        int fdo;
         if (!(totalCMD.empty())) {
             nextToken = totalCMD.front();
             // cout << "Next Tok: " << endl;
@@ -131,6 +220,34 @@ int rshell()
                 // cout << "OR TRUE" << endl;
                 totalCMD.pop();
             }
+            if (nextToken.front() == "<") {
+                isOut1 = true;
+                cout << "is <" << endl;
+            }
+            if (nextToken.front() == ">") {
+                isIn1 = true;
+                cout << "is >" << endl;
+            }
+            if (nextToken.front() == ">>") {
+                isIn2 = true;
+                cout << "is >>";
+                totalCMD.pop();
+                totalCMD.pop();
+                if (!(totalCMD.empty())) {
+                    outFile = totalCMD.front().front().c_str();
+                    totalCMD.pop();
+                }
+                else return rshell();
+            }
+            if (nextToken.front() == "|") {
+                isPipe = true;
+                cout << "is |" << endl;
+            }
+            if (nextToken.front() == "<<<") {
+                isOut3 = true;
+                cout << "is <<<" << endl;
+            }
+            cout <<isIn1<<isIn2<<isOut1<<isOut3<<isPipe<<endl;
         }
         
         char **ARGV = new char*[tokensWithFlags.size() + 1];
@@ -149,8 +266,23 @@ int rshell()
             //return 1;
         }
         else if (pid == 0) {
-            
+            if (isIn2) {
+                fdOut = dup(1);
+                if ((fdOut = dup(1)) == -1) {
+                    perror("error in dup");
+                    exit(1);
+                }
+                if ((fdo = open(outFile, O_WRONLY | O_CREAT)) == -1) {
+                    perror("error in open");
+                    exit(1);
+                }
+                if (dup2(fdo, 1) == -1) {
+                    perror("error in dup2");
+                    exit(1);
+                }
+            }
             if (execvp(ARGV[0], ARGV) != 0) {
+                cerr << "ERR CMD: " << ARGV[0] << endl;
                 perror("error in execvp");
                 isOR = false;
                 isAND = false;
@@ -166,10 +298,7 @@ int rshell()
         else if (totalCMD.empty()) {
             return rshell();
         }
-        // if ((wait(&status) == -1)) {
-        //     exit(1);
-        // }
-        // cout << "STATUS: " << status << endl;
+        
         if (isOR && status == 0) {
             // cout << "POP OR" << endl;
             
