@@ -256,8 +256,10 @@ int rshell()
         // const char *inFile;
         string outFile;
         string inFile;
-        
         string inString;
+        
+        // char buff;
+        
         int fdIn;
         int fdOut;
         int fdo;
@@ -316,9 +318,10 @@ int rshell()
                 nextPipe = true;
                 cout << "is |" << endl;
                 totalCMD.pop();
-                totalCMD.pop();
+                // totalCMD.pop();
                 if (!(totalCMD.empty())) {
                     CMDtoPipe = totalCMD.front().front();
+                    cout << "CMDtoPipe: " << CMDtoPipe << endl;
                     // totalCMD.pop();
                 }
                 else return rshell();
@@ -408,8 +411,17 @@ int rshell()
                 }
             }
             if (nextPipe && CMDtoPipe == CMD) { // |
-                cout << "BOTH: " << CMD << endl;
-                if (close(1) == -1) {
+                cout << "TWO: " << CMD << endl;
+                if (close(0) == -1) {
+                    perror("error in close");
+                    exit(1);
+                }
+                // if (dup2(fd[0], 0) == -1) {
+                //     perror("error in dup2");
+                //     exit(1);
+                // }
+                
+                if (close(fd[1]) == -1) {
                     perror("error in close");
                     exit(1);
                 }
@@ -417,16 +429,33 @@ int rshell()
                     perror("error in dup");
                     exit(1);
                 }
+                if (close(fd[0]) == -1) {
+                    perror("error in close");
+                    exit(1);
+                }
                 nextPipe = false;
             }
             else if (nextPipe) {
                 cout << "ONE: " << CMD << endl;
-                if (close(0) == -1) {
+                if (close(1) == -1) {
+                    perror("error in close");
+                    exit(1);
+                }
+                // if (dup2(fd[1],1) == -1) {
+                //     perror("error in dup2");
+                //     exit(1);
+                // }
+                
+                if (close(fd[0]) == -1) {
                     perror("error in close");
                     exit(1);
                 }
                 if (dup(fd[1]) == -1) {
                     perror("error in dup");
+                    exit(1);
+                }
+                if (close(fd[1]) == -1) {
+                    perror("error in close");
                     exit(1);
                 }
             }
@@ -495,7 +524,7 @@ int rshell()
             //     }
             //     nextPipe = false;
             // }
-        else if (wait(&status) == -1) {
+        else if (!nextPipe && wait(&status) == -1) {
             perror("error in wait");
             exit(1);
         }
