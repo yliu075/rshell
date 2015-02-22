@@ -26,7 +26,7 @@ to download and use rshell:
 ```
 $ git clone  http://github.com/yliu075/rshell.git
 $ cd rshell
-$ git checkout hw0
+$ git checkout hw2
 $ make
 $ bin/rshell
 ```
