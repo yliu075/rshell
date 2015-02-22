@@ -51,11 +51,14 @@ $ bin/rshell
 
 My ls command supports:
 
-1. -a flag
-2. -R flag
-3. -l flag
-4. optional files and folders
-5. using multiple flags at once such as -al
+| Features | Example |
+|---|---|
+| -a flag | bin/ls -a |
+| -R flag | bin/ls -R |
+| -l flag | bin/ls -l |
+| optional files | bin/ls a.out |
+| optional folders | bin/ls src |
+| using multiple flags at once | bin/ls -aRl |
  
 ###installation
 to download and use ls:
