@@ -1,0 +1,149 @@
+Script started on Sat Feb 21 21:32:29 2015
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+~
+yliu075@hammer $ cs100
+/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd rshell
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m make
+g++ -std=c++11 -Wall -Werror -ansi -pedantic src/main.cpp -o bin/rshell
+g++ -std=c++11 -Wall -Werror -ansi -pedantic src/ls.cpp -o bin/ls
+g++ src/cp.cpp -o bin/cp
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m bin/rshell
+yliu075@hammer.cs.ucr.edu$ a ./a.out < in.txt > out.txt #a.out take in.txt as input adn ou     nd output to out.txt
+yliu075@hammer.cs.ucr.edu$ cat in.txt
+1
+yliu075@hammer.cs.ucr.edu$ cat out.txt
+Enter #: 
+hello
+ENTERED #: 1
+yliu075@hammer.cs.ucr.edu$ ./a.out < in.txt >> out.txt #a.out take in,txt as input and append to out.txt
+yliu075@hammer.cs.ucr.edu$ cat out.txt
+Enter #: 
+hello
+ENTERED #: 1
+Enter #: 
+hello
+ENTERED #: 1
+yliu075@hammer.cs.ucr.edu$ ls -l > out2.txt #  ls with flag output to out2.txt
+yliu075@hammer.cs.ucr.edu$ cat out2.txt
+total 60
+-rw------- 1 yliu075 csmajs 18027 Feb  7 19:58 LICENSE
+-rw------- 1 yliu075 csmajs   373 Feb 19 23:43 Makefile
+-rw------- 1 yliu075 csmajs  1971 Feb 21 21:11 README.md
+-rwx------ 1 yliu075 csmajs 10182 Feb 21 21:27 a.out
+drwx------ 2 yliu075 csmajs  4096 Feb 21 21:28 bin
+-rw------- 1 yliu075 csmajs   114 Feb 21 20:23 err.txt
+-rw------- 1 yliu075 csmajs     2 Feb 21 21:27 in.txt
+-rw------- 1 yliu075 csmajs    58 Feb 21 21:31 out.txt
+-rw------- 1 yliu075 csmajs     0 Feb 21 21:32 out2.txt
+drwx------ 2 yliu075 csmajs  4096 Feb 21 20:44 src
+-rw------- 1 yliu075 csmajs   612 Feb 21 21:27 test.cpp
+drwx------ 2 yliu075 csmajs  4096 Feb 21 21:28 tests
+yliu075@hammer.cs.ucr.edu$ ls -1 -a >> out2.txt #ls with flags append to out2.txt
+yliu075@hammer.cs.ucr.edu$ cat out2.txt
+total 60
+-rw------- 1 yliu075 csmajs 18027 Feb  7 19:58 LICENSE
+-rw------- 1 yliu075 csmajs   373 Feb 19 23:43 Makefile
+-rw------- 1 yliu075 csmajs  1971 Feb 21 21:11 README.md
+-rwx------ 1 yliu075 csmajs 10182 Feb 21 21:27 a.out
+drwx------ 2 yliu075 csmajs  4096 Feb 21 21:28 bin
+-rw------- 1 yliu075 csmajs   114 Feb 21 20:23 err.txt
+-rw------- 1 yliu075 csmajs     2 Feb 21 21:27 in.txt
+-rw------- 1 yliu075 csmajs    58 Feb 21 21:31 out.txt
+-rw------- 1 yliu075 csmajs     0 Feb 21 21:32 out2.txt
+drwx------ 2 yliu075 csmajs  4096 Feb 21 20:44 src
+-rw------- 1 yliu075 csmajs   612 Feb 21 21:27 test.cpp
+drwx------ 2 yliu075 csmajs  4096 Feb 21 21:28 tests
+.
+..
+.git
+.test.cppipt.swp
+LICENSE
+Makefile
+README.md
+a.out
+bin
+err.txt
+in.txt
+out.txt
+out2.txt
+src
+test.cpp
+tests
+yliu075@hammer.cs.ucr.edu$ ls -l -a >> out2.txt #used - ONE last time
+yliu075@hammer.cs.ucr.edu$ cat out2.txt
+total 60
+-rw------- 1 yliu075 csmajs 18027 Feb  7 19:58 LICENSE
+-rw------- 1 yliu075 csmajs   373 Feb 19 23:43 Makefile
+-rw------- 1 yliu075 csmajs  1971 Feb 21 21:11 README.md
+-rwx------ 1 yliu075 csmajs 10182 Feb 21 21:27 a.out
+drwx------ 2 yliu075 csmajs  4096 Feb 21 21:28 bin
+-rw------- 1 yliu075 csmajs   114 Feb 21 20:23 err.txt
+-rw------- 1 yliu075 csmajs     2 Feb 21 21:27 in.txt
+-rw------- 1 yliu075 csmajs    58 Feb 21 21:31 out.txt
+-rw------- 1 yliu075 csmajs     0 Feb 21 21:32 out2.txt
+drwx------ 2 yliu075 csmajs  4096 Feb 21 20:44 src
+-rw------- 1 yliu075 csmajs   612 Feb 21 21:27 test.cpp
+drwx------ 2 yliu075 csmajs  4096 Feb 21 21:28 tests
+.
+..
+.git
+.test.cppipt.swp
+LICENSE
+Makefile
+README.md
+a.out
+bin
+err.txt
+in.txt
+out.txt
+out2.txt
+src
+test.cpp
+tests
+total 92
+drwx------  6 yliu075 csmajs  4096 Feb 21 21:27 .
+drwx------ 45 yliu075 csmajs  8192 Feb 21 21:27 ..
+drwx------  8 yliu075 csmajs  4096 Feb 21 21:11 .git
+-rw-------  1 yliu075 csmajs 12288 Feb 21 21:20 .test.cppipt.swp
+-rw-------  1 yliu075 csmajs 18027 Feb  7 19:58 LICENSE
+-rw-------  1 yliu075 csmajs   373 Feb 19 23:43 Makefile
+-rw-------  1 yliu075 csmajs  1971 Feb 21 21:11 README.md
+-rwx------  1 yliu075 csmajs 10182 Feb 21 21:27 a.out
+drwx------  2 yliu075 csmajs  4096 Feb 21 21:28 bin
+-rw-------  1 yliu075 csmajs   114 Feb 21 20:23 err.txt
+-rw-------  1 yliu075 csmajs     2 Feb 21 21:27 in.txt
+-rw-------  1 yliu075 csmajs    58 Feb 21 21:31 out.txt
+-rw-------  1 yliu075 csmajs   776 Feb 21 21:33 out2.txt
+drwx------  2 yliu075 csmajs  4096 Feb 21 20:44 src
+-rw-------  1 yliu075 csmajs   612 Feb 21 21:27 test.cpp
+drwx------  2 yliu075 csmajs  4096 Feb 21 21:28 tests
+yliu075@hammer.cs.ucr.edu$ exit
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~
+yliu075@hammer $ exit
+exit
+
+Script done on Sat Feb 21 21:40:41 2015
