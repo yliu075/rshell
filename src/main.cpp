@@ -101,11 +101,13 @@ int rshell()
     // cout << login << '@' << host << "$ ";
     printf("%s@%s$ ",login, host);
     // cout << "$ ";
+    // delete[] login;
     string cmdstring;
     getline(cin, cmdstring);
     if (cmdstring.size() == 0) {
         return rshell();
     }
+    else if (cmdstring == "exit") exit(0);
     if (cmdstring.find('#') != string::npos) {
         if (cmdstring.find('#') == 0) {
             return rshell();
@@ -422,6 +424,12 @@ int rshell()
             ARGV[j] = new char[tokensWithFlags.at(j).size() + 1];
             strcpy(ARGV[j], tokensWithFlags.at(j).c_str());
         }
+        // char *ARGV[tokensWithFlags.size() + 1];
+        // for (size_t j = 0; j < tokensWithFlags.size(); j++) {
+        //     // ARGV[j] = new char[tokensWithFlags.at(j).size() + 1];
+        //     // strcpy(ARGV[j], tokensWithFlags.at(j).c_str());
+        //     ARGV[j] = (char*)tokensWithFlags.at(j).c_str();
+        // }
         ARGV[tokensWithFlags.size()] = 0;
         if (nextPipe) {
             
@@ -458,21 +466,18 @@ int rshell()
         }
         else if (pid == 0 && !nextPipe && isIn3) {
             
-            char **ARGV3 = new char*[tokensWithFlags.size() + 1];
+            char *ARGV3[3];
             ARGV3[0] = new char[5];
-            strcpy(ARGV3[0], "echo");
+            ARGV3[0] = (char*)"echo";
             ARGV3[1] = new char[inString.size() + 1];
-            strcpy(ARGV3[1], (char*)inString.c_str());
+            ARGV3[1] = (char*)inString.c_str();
             ARGV3[2] = 0;
             
             
             my_Pipes(ARGV3, ARGV);
+            // delete[] ARGV3;
             // if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
             // else cout << "totalCMD is not empty" << endl;
-            // delete ARGV3[0];
-            // delete ARGV3[1];
-            // delete ARGV3[2];
-            delete[] ARGV3;
             // cout << "DONE PIPING" << endl;
             if (wait(&status) == -1) {
                 perror("error in wait");
@@ -754,6 +759,7 @@ int rshell()
         }
         delete[] ARGV;
     }
+    
     return rshell();
 }
 
