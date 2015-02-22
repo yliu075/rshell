@@ -2,29 +2,29 @@
 
 rshell is a simple Unix command shell with the ability to:
 
-1. run all commands found in /bin   example: pwd
+1. run all commands found in /bin   | example: pwd
 
-2. use semi-colon (;)               example: pwd; ls
+2. use semi-colon (;)               | example: pwd; ls
 
-3. use or (||)                      example: pwd || ls
+3. use or (||)                      | example: pwd || ls
 
-4. use and (&&)                     example: pwd && ls
+4. use and (&&)                     | example: pwd && ls
 
-5. use arguments without spaces     example: ls-a-l
+5. use arguments without spaces     | example: ls-a-l
 
-6. use >                            example: ls > out.txt
+6. use >                            | example: ls > out.txt
 
-7. use >>                           example: ls >> out.txt
+7. use >>                           | example: ls >> out.txt
 
-8. use <                            example: ./a.out < in.txt
+8. use <                            | example: ./a.out < in.txt
 
-9. use <<<                          example: cat <<< "hello world"
+9. use <<<                          | example: cat <<< "hello world"
 
-10. use |                           example: echo hello world | cat
+10. use |                           | example: echo hello world | cat
 
-11. use 1> or 2>                    example: ls 2> err.txt
+11. use 1> or 2>                    | example: ls 2> err.txt
 
-12. use 1>> or 2>>                  example: ls 2>> err.txt
+12. use 1>> or 2>>                  | example: ls 2>> err.txt
 
 
 ###exit command
