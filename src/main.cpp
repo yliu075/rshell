@@ -421,8 +421,8 @@ int rshell()
         for (size_t j = 0; j < tokensWithFlags.size(); j++) {
             ARGV[j] = new char[tokensWithFlags.at(j).size() + 1];
             strcpy(ARGV[j], tokensWithFlags.at(j).c_str());
-            ARGV[tokensWithFlags.size()] = 0;
         }
+        ARGV[tokensWithFlags.size()] = 0;
         if (nextPipe) {
             
             tokensWithFlags = totalCMD.front();
@@ -431,8 +431,8 @@ int rshell()
             for (size_t j = 0; j < tokensWithFlags.size(); j++) {
                 ARGV2[j] = new char[tokensWithFlags.at(j).size() + 1];
                 strcpy(ARGV2[j], tokensWithFlags.at(j).c_str());
-                ARGV2[tokensWithFlags.size()] = 0;
             }
+            ARGV2[tokensWithFlags.size()] = 0;
             // cout << "ARGV2 NOW: " << ARGV2[0] << " CMDtoPipe: " << CMDtoPipe << endl;
         }
         string CMD = ARGV[0];
@@ -448,7 +448,7 @@ int rshell()
             my_Pipes(ARGV, ARGV2);
             // if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
             // else cout << "totalCMD is not empty" << endl;
-            
+            delete[] ARGV2;
             // cout << "DONE PIPING" << endl;
             if (wait(&status) == -1) {
                 perror("error in wait");
@@ -469,7 +469,10 @@ int rshell()
             my_Pipes(ARGV3, ARGV);
             // if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
             // else cout << "totalCMD is not empty" << endl;
-            
+            // delete ARGV3[0];
+            // delete ARGV3[1];
+            // delete ARGV3[2];
+            delete[] ARGV3;
             // cout << "DONE PIPING" << endl;
             if (wait(&status) == -1) {
                 perror("error in wait");
@@ -749,11 +752,9 @@ int rshell()
             // cout << "POP AND" << endl;
             if (!(totalCMD.empty())) totalCMD.pop();
         }
-        delete ARGV;
+        delete[] ARGV;
     }
     return rshell();
-    // if (rshell() == 0) exit(0);
-    // return 0;
 }
 
 int main(int argc, char** argv)
