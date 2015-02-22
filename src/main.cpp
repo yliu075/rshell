@@ -343,7 +343,8 @@ int rshell()
         int fdOut;
         int fdo;
         int fdi;
-        if (!(totalCMD.empty())) {
+        for (int m = 0; m < 2 && !(totalCMD.empty()); m++) {
+        // if (!(totalCMD.empty())) {
             nextToken = totalCMD.front();
             // cout << "Next Tok: " << endl;
             if (nextToken.front() == "&&") {

@@ -48,11 +48,11 @@ $ bin/rshell
 
 3. cannot use gethostname() and getlogin() when running on Windows
 
-4. sometimes requires two exits to quit FIXED
+4. ~~sometimes requires two exits to quit~~ FIXED
  
 5. cannot only use | and <<< by themselves
 
-6. cannot use both input redirection and output redirection together
+6. ~~cannot use both input redirection and output redirection together~~ FIXED
 
 
 
@@ -77,5 +77,5 @@ $ bin/ls
 ```
 ###known bugs
 
-1. using the -R flag with -a in any instance creates recursive bombs if user has root access, recursion is limited to 10 for user without root access FIXED
+1. ~~using the -R flag with -a in any instance creates recursive bombs if user has root access, recursion is limited to 10 for user without root access~~ FIXED
 2. error with optional files and -l flag
