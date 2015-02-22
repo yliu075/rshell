@@ -1,0 +1,128 @@
+Script started on Sat Feb 21 20:19:10 2015
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+~
+yliu075@hammer $ cs100
+/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd rshell
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m make
+g++ -std=c++11 -Wall -Werror -ansi -pedantic src/main.cpp -o bin/rshell
+g++ -std=c++11 -Wall -Werror -ansi -pedantic src/ls.cpp -o bin/ls
+g++ src/cp.cpp -o bin/cp
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m bin/rshell
+yliu075@hammer.cs.ucr.edu$ ls
+LICENSE  Makefile  README.md  bin  err.txt  src  tests
+yliu075@hammer.cs.ucr.edu$ ls > out.txt #ls    > ls ouput     tput into out.txt
+yliu075@hammer.cs.ucr.edu$ cat out.txt
+LICENSE
+Makefile
+README.md
+bin
+err.txt
+out.txt
+src
+tests
+yliu075@hammer.cs.ucr.edu$ rm out.txt
+yliu075@hammer.cs.ucr.edu$ ls >> out,txt    .txt #>> ls into      output into out.txt
+yliu075@hammer.cs.ucr.edu$ ls >> out.txt #  >> ls append into out.txt
+yliu075@hammer.cs.ucr.edu$ cat out.txt
+LICENSE
+Makefile
+README.md
+bin
+err.txt
+out.txt
+src
+tests
+LICENSE
+Makefile
+README.md
+bin
+err.txt
+out.txt
+src
+tests
+yliu075@hammer.cs.ucr.edu$ tail < out.txt #  < tail use out.txt as inputs
+src
+tests
+LICENSE
+Makefile
+README.md
+bin
+err.txt
+out.txt
+src
+tests
+yliu075@hammer.cs.ucr.edu$ echo hello world | cat #| cat use echo's output as input
+hello world
+yliu075@hammer.cs.ucr.edu$ cat <<< "hello world" #  <<< cat take string ass  input
+hello world
+yliu075@hammer.cs.ucr.edu$ g++ 2> err.txt #  2> redirect err r   c err message to err.txt
+yliu075@hammer.cs.ucr.edu$ cat err.txt
+g++: fatal error: no input files
+compilation terminated.
+yliu075@hammer.cs.ucr.edu$ g++ 2>> err.txt #2>> append err message to err.txt
+yliu075@hammer.cs.ucr.edu$ cat err.txt
+g++: fatal error: no input files
+compilation terminated.
+g++: fatal error: no input files
+compilation terminated.
+yliu075@hammer.cs.ucr.edu$ ls 1> out2.txt #1> ls output into outw 2.txt
+yliu075@hammer.cs.ucr.edu$ cat out2.txt
+LICENSE
+Makefile
+README.md
+bin
+err.txt
+out.txt
+out2.txt
+src
+tests
+yliu075@hammer.cs.ucr.edu$ ls >>  1>> out2.txt #1>> ls append out2.txt
+yliu075@hammer.cs.ucr.edu$ cat out2.txt
+LICENSE
+Makefile
+README.md
+bin
+err.txt
+out.txt
+out2.txt
+src
+tests
+LICENSE
+Makefile
+README.md
+bin
+err.txt
+out.txt
+out2.txt
+src
+tests
+yliu075@hammer.cs.ucr.edu$ exit
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~
+yliu075@hammer $ exit
+exit
+
+Script done on Sat Feb 21 20:29:45 2015
