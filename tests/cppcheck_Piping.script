@@ -1,0 +1,12 @@
+Script started on Sat Feb 21 18:02:55 2015
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+~
+yliu075@hammer $ cd rshell
+~/rshell
+yliu075@hammer $ cppcheck src/main.cpp
+Checking src/main.cpp...
+~/rshell
+yliu075@hammer $ exit
+exit
+
+Script done on Sat Feb 21 18:03:24 2015
