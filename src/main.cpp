@@ -444,10 +444,10 @@ int rshell()
             exit(1);
             //return 1;
         }
-        else if (pid == 0 && nextPipe) {
+        else if (pid == 0 && nextPipe && !isIn3) {
             my_Pipes(ARGV, ARGV2);
-            if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
-            else cout << "totalCMD is not empty" << endl;
+            // if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
+            // else cout << "totalCMD is not empty" << endl;
             
             // cout << "DONE PIPING" << endl;
             if (wait(&status) == -1) {
@@ -456,7 +456,28 @@ int rshell()
             }
             if (totalCMD.empty()) return rshell();
         }
-        else if (pid == 0 && CMD != CMDtoPipe) {////////////////////////////////////////////////////
+        else if (pid == 0 && !nextPipe && isIn3) {
+            
+            char **ARGV3 = new char*[tokensWithFlags.size() + 1];
+            ARGV3[0] = new char[5];
+            strcpy(ARGV3[0], "echo");
+            ARGV3[1] = new char[inString.size() + 1];
+            strcpy(ARGV3[1], (char*)inString.c_str());
+            ARGV3[2] = 0;
+            
+            
+            my_Pipes(ARGV3, ARGV);
+            // if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
+            // else cout << "totalCMD is not empty" << endl;
+            
+            // cout << "DONE PIPING" << endl;
+            if (wait(&status) == -1) {
+                perror("error in wait");
+                exit(1);
+            }
+            if (totalCMD.empty()) return rshell();
+        }
+        else if ((pid == 0) && (CMD != CMDtoPipe) && !nextPipe && !isIn3) {////////////////////////////////////////////////////
             // cout << "CHILD: " <<CMD << " CMDtoPipe: " << CMDtoPipe << " nextPipe: " << nextPipe<<endl;
             if (isIn1) { // <
                 // cout << "isIn1" << endl;
@@ -475,67 +496,50 @@ int rshell()
                 }
             }
             ///////////////////////////////////////////////////////////////////
+            /*
             else if (isIn3) { // <<<
                 cout << "isIn3 inString: " << inString << endl;
-                if ((fdIn = dup(0)) == -1) {
-                    perror("error in dup");
-                    exit(1);
-                }
-                
-                // char buf[BUFSIZ];
-                char *buf= (char*)inString.c_str();
-                cout << "c_str: " << buf << " SIZ: " << inString.size() << endl;
-                // if (close(0) == -1) {
-                //     perror("error in close");
+                // if ((fdIn = dup(0)) == -1) {
+                //     perror("error in dup");
                 //     exit(1);
                 // }
-                // fdi = 0;
-                // if (write(0, buf, inString.size()) == -1) {
+                
+                // char buf[BUFSIZ];
+                char *buf= (char*)(inString).c_str();
+                cout << "c_str: " << buf << " SIZ: " << strlen(buf) << endl;
+                // if ((fdi = open(".", O_TMPFILE | O_RDWR, 0666)) == -1) {
+                //     perror("error in open");
+                //     exit(1);
+                // }
+                // int writeNum = 0;
+                // if ((writeNum = write(0, buf + '\0', strlen(buf) + 1)) == -1) {
                 //     perror("error in write");
                 //     exit(1);
                 // }
-                cout << "DONE" << endl;
-                // if (dup2(fd[0], 0) == -1) {
+                dprintf(fd[0],"%s" + '\n', buf);
+                // if (dup2(fdi, 0) == -1) {
                 //     perror("error in dup2");
                 //     exit(1);
                 // }
-                
-                // if (fdopen(fdi, "r") == NULL) {
-                //     perror("error in fdopen");
-                //     exit(1);
-                // }
-                
-                // if (read(0, buf, inString.size()) == -1) {
-                //     perror("error in read");
-                //     exit(1);
-                // }
-                
-                if (close(0) == -1) {
-                    perror("error in close");
-                    exit(1);
-                }
-                
-                if (write(fd[1], buf, inString.size()) == -1) {
-                    perror("error in write");
-                    exit(1);
-                }
                 if (dup2(fd[0], 0) == -1) {
                     perror("error in dup2");
                     exit(1);
                 }
-                if (close(0) == -1) {
-                    perror("error in close");
-                    exit(1);
-                }
-                // if (close(fd[0]) == -1) {
-                //     perror("error in close");
-                //     exit(1);
-                // }
+                
                 if (close(fd[1]) == -1) {
                     perror("error in close");
                     exit(1);
                 }
-            }
+                if (close(fd[0]) == -1) {
+                    perror("error in close");
+                    exit(1);
+                }
+                // string tempS;
+                // cin >> tempS;
+                // cout << "TEMP: " << tempS << " writeNum: " << writeNum << endl;
+                
+                cout << "DONE" << endl;
+            } */
             ////////////////////////////////////////////////////////////////////
             // if (nextPipe && CMDtoPipe == CMD) { // |
             //     cout << "TWO: " << CMD << endl;
@@ -734,7 +738,7 @@ int rshell()
             exit(1);
         }
         // }
-        else if (nextPipe && totalCMD.empty()) exit(0);
+        else if ((isIn3 || nextPipe) && totalCMD.empty()) exit(0);
         // else if (!nextPipe && totalCMD.empty()) return rshell();
         
         if (isOR && status == 0) {
