@@ -421,16 +421,12 @@ int rshell()
         }
         char **ARGV2;
         char **ARGV = new char*[tokensWithFlags.size() + 1];
+        
         for (size_t j = 0; j < tokensWithFlags.size(); j++) {
-            ARGV[j] = new char[tokensWithFlags.at(j).size() + 1];
-            strcpy(ARGV[j], tokensWithFlags.at(j).c_str());
+            // ARGV[j] = new char[tokensWithFlags.at(j).size() + 1];
+            // strcpy(ARGV[j], tokensWithFlags.at(j).c_str());
+            ARGV[j] = (char*)tokensWithFlags.at(j).c_str();
         }
-        // char *ARGV[tokensWithFlags.size() + 1];
-        // for (size_t j = 0; j < tokensWithFlags.size(); j++) {
-        //     // ARGV[j] = new char[tokensWithFlags.at(j).size() + 1];
-        //     // strcpy(ARGV[j], tokensWithFlags.at(j).c_str());
-        //     ARGV[j] = (char*)tokensWithFlags.at(j).c_str();
-        // }
         ARGV[tokensWithFlags.size()] = 0;
         if (nextPipe) {
             
@@ -438,8 +434,9 @@ int rshell()
             totalCMD.pop();
             ARGV2 = new char*[tokensWithFlags.size() + 1];
             for (size_t j = 0; j < tokensWithFlags.size(); j++) {
-                ARGV2[j] = new char[tokensWithFlags.at(j).size() + 1];
-                strcpy(ARGV2[j], tokensWithFlags.at(j).c_str());
+                // ARGV2[j] = new char[tokensWithFlags.at(j).size() + 1];
+                // strcpy(ARGV2[j], tokensWithFlags.at(j).c_str());
+                ARGV2[j] = (char*)tokensWithFlags.at(j).c_str();
             }
             ARGV2[tokensWithFlags.size()] = 0;
             // cout << "ARGV2 NOW: " << ARGV2[0] << " CMDtoPipe: " << CMDtoPipe << endl;
@@ -453,7 +450,7 @@ int rshell()
             exit(1);
             //return 1;
         }
-        else if (pid == 0 && nextPipe && !isIn3) {
+        else if (pid == 0 && nextPipe && !isIn3) { // | PIPING
             my_Pipes(ARGV, ARGV2);
             // if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
             // else cout << "totalCMD is not empty" << endl;
@@ -465,7 +462,7 @@ int rshell()
             }
             if (totalCMD.empty()) return rshell();
         }
-        else if (pid == 0 && !nextPipe && isIn3) {
+        else if (pid == 0 && !nextPipe && isIn3) { // <<<
             
             char *ARGV3[3];
             ARGV3[0] = new char[5];
@@ -504,104 +501,7 @@ int rshell()
                     exit(1);
                 }
             }
-            ///////////////////////////////////////////////////////////////////
-            /*
-            else if (isIn3) { // <<<
-                cout << "isIn3 inString: " << inString << endl;
-                // if ((fdIn = dup(0)) == -1) {
-                //     perror("error in dup");
-                //     exit(1);
-                // }
-                
-                // char buf[BUFSIZ];
-                char *buf= (char*)(inString).c_str();
-                cout << "c_str: " << buf << " SIZ: " << strlen(buf) << endl;
-                // if ((fdi = open(".", O_TMPFILE | O_RDWR, 0666)) == -1) {
-                //     perror("error in open");
-                //     exit(1);
-                // }
-                // int writeNum = 0;
-                // if ((writeNum = write(0, buf + '\0', strlen(buf) + 1)) == -1) {
-                //     perror("error in write");
-                //     exit(1);
-                // }
-                dprintf(fd[0],"%s" + '\n', buf);
-                // if (dup2(fdi, 0) == -1) {
-                //     perror("error in dup2");
-                //     exit(1);
-                // }
-                if (dup2(fd[0], 0) == -1) {
-                    perror("error in dup2");
-                    exit(1);
-                }
-                
-                if (close(fd[1]) == -1) {
-                    perror("error in close");
-                    exit(1);
-                }
-                if (close(fd[0]) == -1) {
-                    perror("error in close");
-                    exit(1);
-                }
-                // string tempS;
-                // cin >> tempS;
-                // cout << "TEMP: " << tempS << " writeNum: " << writeNum << endl;
-                
-                cout << "DONE" << endl;
-            } */
-            ////////////////////////////////////////////////////////////////////
-            // if (nextPipe && CMDtoPipe == CMD) { // |
-            //     cout << "TWO: " << CMD << endl;
-            //     if (close(0) == -1) {
-            //         perror("error in close");
-            //         exit(1);
-            //     }
-            //     // if (dup2(fd[0], 0) == -1) {
-            //     //     perror("error in dup2");
-            //     //     exit(1);
-            //     // }
-                
-            //     if (close(fd[1]) == -1) {
-            //         perror("error in close");
-            //         exit(1);
-            //     }
-            //     if (dup(fd[0]) == -1) {
-            //         perror("error in dup");
-            //         exit(1);
-            //     }
-            //     if (close(fd[0]) == -1) {
-            //         perror("error in close");
-            //         exit(1);
-            //     }
-            //     nextPipe = false;
-            // }
-            /*
-            if (nextPipe) {// && CMDtoPipe != CMD) {
-                cout << "ONE: " << CMD << endl;
-                
-                // if (dup2(fd[1],1) == -1) {
-                //     perror("error in dup2");
-                //     exit(1);
-                // }
-                
-                if (close(fd[0]) == -1) {
-                    perror("error in close");
-                    exit(1);
-                }
-                if (close(1) == -1) {
-                    perror("error in close");
-                    exit(1);
-                }
-                if (dup2(fd[1], 1) == -1) {
-                    perror("error in dup");
-                    exit(1);
-                }
-                if (close(fd[1]) == -1) {
-                    perror("error in close");
-                    exit(1);
-                }
-            }*/
-            ////////////////////////////////////////////////////////////////////
+            
             if (isOut1) { // >
                 // cout << "isOut1 "<< outFile << endl;
                 int OutFD = 1;
@@ -658,90 +558,7 @@ int rshell()
             }
             return 0;
         }
-        // else if (pid != 0) {
-            // if (nextPipe) {
-            //     if ((fdOut = dup(1)) == -1) {
-            //         perror("error in dup");
-            //         exit(1);
-            //     }
-                
-            //     if (dup2(fd[1], 1) == -1) {
-            //         perror("error in dup2");
-            //         exit(1);
-            //     }
-            //     nextPipe = false;
-            // }
-        ////////////////////////////////////////////////////////////////////////
-        /*
-        else if (nextPipe ) { // |
-            // int pid2;
-            // if ((pid2 = fork()) == -1) {
-            //     perror("error in fork");
-            //     exit(1);
-            // }
-            // if (pid2 == 0) {
-            tokensWithFlags = totalCMD.front();
-            totalCMD.pop();
-            char **ARGV2 = new char*[tokensWithFlags.size() + 1];
-            for (size_t j = 0; j < tokensWithFlags.size(); j++) {
-                ARGV2[j] = new char[tokensWithFlags.at(j).size() + 1];
-                strcpy(ARGV2[j], tokensWithFlags.at(j).c_str());
-                ARGV2[tokensWithFlags.size()] = 0;
-            }
-            
-            if (wait(&status) == -1) {
-                perror("error in wait1");
-                exit(1);
-            }
-            CMD = ARGV2[0];
-            cout << "TWO: " << CMD << endl;
-            
-            // if (dup2(fd[0], 0) == -1) {
-            //     perror("error in dup2");
-            //     exit(1);
-            // }
-            
-            if (close(fd[1]) == -1) {
-                perror("error in close");
-                exit(1);
-            }
-            if (close(0) == -1) {
-                perror("error in close");
-                exit(1);
-            }
-            if (dup2(fd[0], 0) == -1) {
-                perror("error in dup");
-                exit(1);
-            }
-            if (close(fd[0]) == -1) {
-                perror("error in close");
-                exit(1);
-            }
-            nextPipe = false;
-            if (execvp(ARGV[0], ARGV) != 0) {
-                // cerr << "ERR CMD: " << ARGV[0] << endl;
-                perror("error in execvp");
-                isOR = false;
-                isAND = false;
-                // if ((wait(&status) == -1)) 
-                delete ARGV2;
-                exit(1);
-            }
-            delete ARGV2; 
-            // }
-            if (wait(&status) == -1) {
-                perror("error in wait1");
-                exit(1);
-            }
-            if (wait(&status) == -1) {
-                perror("error in wait1");
-                exit(1);
-            }
-            // delete ARGV2;
-            // return 0;
-            
-        }///////////////////////////////////////////////////////////////////////
-        */
+        
         else if (CMD != CMDtoPipe && wait(&status) == -1) {
             perror("error in wait");
             exit(1);
