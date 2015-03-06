@@ -14,9 +14,15 @@
 #include <sys/wait.h>
 #include <grp.h>
 #include <pwd.h>
+#include <signal.h>
 
 using namespace std;
 using namespace boost;
+
+void sigFun(int sig) 
+{
+    if (sig == SIGINT);
+}
 
 void my_CD(string newDir, char currDir[])
 {
@@ -58,6 +64,10 @@ void my_Pipes(char **ARGV1, char **ARGV2, vector<string> pathNames)
             exit(1);
         }
         string ARGV0 = ARGV1[0];
+        if (signal(SIGINT, NULL) == SIG_ERR) {
+            perror("error in signal");
+            exit(1);
+        }
         for (size_t k = 0; k < pathNames.size(); k++) {
             if (execv((pathNames[k] + '/' + ARGV0).c_str(), ARGV1) != 0 && k == (pathNames.size() - 1)) {
                 perror("error in execv");
@@ -86,6 +96,10 @@ void my_Pipes(char **ARGV1, char **ARGV2, vector<string> pathNames)
                 exit(1);
             }
             string ARGV0 = ARGV2[0];
+            if (signal(SIGINT, NULL) == SIG_ERR) {
+                perror("error in signal");
+                exit(1);
+            }
             for (size_t k = 0; k < pathNames.size(); k++) {
                 if (execv((pathNames[k] + '/' + ARGV0).c_str(), ARGV2) != 0 && k == (pathNames.size() - 1)) {
                     perror("error in execv");
@@ -111,6 +125,7 @@ void my_Pipes(char **ARGV1, char **ARGV2, vector<string> pathNames)
 
 int rshell(vector<string> pathNames)
 {
+    signal(SIGINT, sigFun);
     char currDir[128];
     if (getcwd(currDir, 128) == NULL) {
         perror("error in getcwd");
@@ -573,6 +588,10 @@ int rshell(vector<string> pathNames)
             if (!nextPipe) {
                 string ARGV0 = ARGV[0];
                 // cout << "EXE NOW: " << ARGV[0] << endl;
+                if (signal(SIGINT, NULL) == SIG_ERR) {
+                    perror("error in signal");
+                    exit(1);
+                }
                 for (size_t k = 0; k < pathNames.size(); k++) {
                     if (execv((pathNames[k] + '/' + ARGV0).c_str(), ARGV) != 0 && k == (pathNames.size() - 1)) {
                         // cerr << "ERR CMD: " << ARGV[0] << endl;
