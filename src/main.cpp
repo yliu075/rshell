@@ -18,6 +18,15 @@
 using namespace std;
 using namespace boost;
 
+void my_CD(string newDir, char currDir[])
+{
+    string currLoc = currDir;
+    // cout << "NOW: " << currDir << 
+    if (chdir((currDir + '/' + newDir).c_str()) == -1) {
+        perror("error in chdir");
+        // exit(1);
+    }
+}
 
 void my_Pipes(char **ARGV1, char **ARGV2, vector<string> pathNames)
 {
@@ -102,11 +111,16 @@ void my_Pipes(char **ARGV1, char **ARGV2, vector<string> pathNames)
 
 int rshell(vector<string> pathNames)
 {
+    char currDir[128];
+    if (getcwd(currDir, 128) == NULL) {
+        perror("error in getcwd");
+        exit(1);
+    }
     char *login = getpwuid(getuid())->pw_name;
     char host[64];
     gethostname(host,sizeof host);
     // cout << login << '@' << host << "$ ";
-    printf("%s@%s$ ",login, host);
+    printf("%s\n%s@%s$ ", currDir, login, host);
     // cout << "$ ";
     // delete[] login;
     string cmdstring;
@@ -304,9 +318,13 @@ int rshell(vector<string> pathNames)
             tokensWithFlags.clear();
             // h++;
         }
-        
+        else if ((h + 1) < tokens.size() && (tokens.at(h) == "cd" || tokens.at(h) == "CD" || tokens.at(h) == "Cd" || tokens.at(h) == "cD")) {
+            my_CD(tokens.at(h + 1), currDir);
+            h++;
+        }
         else tokensWithFlags.push_back(tokens.at(h));
     }
+    if (tokensWithFlags.empty()) return rshell(pathNames);
     if (tokensWithFlags.at(0) == "exit") exit(0);
     //totalCMD.push_back(tokensWithFlags);
     totalCMD.push(tokensWithFlags);
@@ -553,8 +571,8 @@ int rshell(vector<string> pathNames)
             }
             
             if (!nextPipe) {
-                // cout << "EXE NOW: " << ARGV[0] << endl;
                 string ARGV0 = ARGV[0];
+                // cout << "EXE NOW: " << ARGV[0] << endl;
                 for (size_t k = 0; k < pathNames.size(); k++) {
                     if (execv((pathNames[k] + '/' + ARGV0).c_str(), ARGV) != 0 && k == (pathNames.size() - 1)) {
                         // cerr << "ERR CMD: " << ARGV[0] << endl;
