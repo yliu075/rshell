@@ -19,7 +19,7 @@ using namespace std;
 using namespace boost;
 
 
-void my_Pipes(char **ARGV1, char **ARGV2)
+void my_Pipes(char **ARGV1, char **ARGV2, vector<string> pathNames)
 {
     // cout << "ARGV1: " << ARGV1[0] << " ARGV2: " << ARGV2[0] << endl;
     int status = 0;
@@ -48,10 +48,14 @@ void my_Pipes(char **ARGV1, char **ARGV2)
             perror("error in close");
             exit(1);
         }
-        if (execvp(ARGV1[0], ARGV1) != 0) {
-            perror("error in execvp");
-            exit(1);
+        string ARGV0 = ARGV1[0];
+        for (size_t k = 0; k < pathNames.size(); k++) {
+            if (execv((pathNames[k] + '/' + ARGV0).c_str(), ARGV1) != 0 && k == (pathNames.size() - 1)) {
+                perror("error in execv");
+                exit(1);
+            }
         }
+
     }
     else {
         // cout << "IN PIPE_1 ARGV1: " << ARGV1[0] << endl
@@ -72,9 +76,12 @@ void my_Pipes(char **ARGV1, char **ARGV2)
                 perror("error in close");
                 exit(1);
             }
-            if (execvp(ARGV2[0], ARGV2) != 0) {
-                perror("error in execvp");
-                exit(1);
+            string ARGV0 = ARGV2[0];
+            for (size_t k = 0; k < pathNames.size(); k++) {
+                if (execv((pathNames[k] + '/' + ARGV0).c_str(), ARGV2) != 0 && k == (pathNames.size() - 1)) {
+                    perror("error in execv");
+                    exit(1);
+                }
             }
         }
         if (close(fd[0]) == -1) {
@@ -93,7 +100,7 @@ void my_Pipes(char **ARGV1, char **ARGV2)
 }
 
 
-int rshell()
+int rshell(vector<string> pathNames)
 {
     char *login = getpwuid(getuid())->pw_name;
     char host[64];
@@ -105,12 +112,12 @@ int rshell()
     string cmdstring;
     getline(cin, cmdstring);
     if (cmdstring.size() == 0) {
-        return rshell();
+        return rshell(pathNames);
     }
     else if (cmdstring == "exit") exit(0);
     if (cmdstring.find('#') != string::npos) {
         if (cmdstring.find('#') == 0) {
-            return rshell();
+            return rshell(pathNames);
         }
         cmdstring.erase(cmdstring.find('#'), cmdstring.size() - 1);
     }
@@ -126,7 +133,7 @@ int rshell()
         if (cmdstring.at(t) != ' ') {
             tempString = tempString + cmdstring.at(t);
         }
-        else tempString = tempString + "SPACE";
+        else tempString = tempString + "~";
     }
     
     cmdstring = tempString;
@@ -136,10 +143,10 @@ int rshell()
         cmdstring.erase(cmdstring.size() - 1, 1);
     }
     if (cmdstring.size() == 0) {
-        return rshell();
+        return rshell(pathNames);
     }
     vector<string> tokens;
-    char_separator<char> dash("SPACE","-|&; ");
+    char_separator<char> dash("~","-|&; ");
     // char_separator<char> dash(" ","-|&;<>");
     tokenizer<char_separator<char> > tok(cmdstring, dash);
     for (tokenizer<char_separator<char> >::iterator iter = tok.begin(); iter != tok.end(); iter++) {
@@ -163,7 +170,7 @@ int rshell()
                 h++;
                 temp += ' ' + tokens.at(h);
             } while (h + 1 < tokens.size() && (tokens.at(h).find('"') == string::npos));
-            if (!(h < tokens.size())) return rshell();
+            if (!(h < tokens.size())) return rshell(pathNames);
             if (temp.at(temp.size() - 1) == '"') temp.erase(temp.size() - 1);
             // cout << "temp: " << temp << endl;
             tokensWithFlags.push_back(temp);
@@ -366,7 +373,7 @@ int rshell()
                     inFile = totalCMD.front().front().c_str();
                     totalCMD.pop();
                 }
-                else return rshell();
+                else return rshell(pathNames);
             }
             if (nextToken.front() == ">" || nextToken.front() == "1>" || nextToken.front() == "2>") {
                 if (nextToken.front() == "2>") outErr = true;
@@ -379,7 +386,7 @@ int rshell()
                     // cout << "OUTFILE: " << outFile << endl;
                     totalCMD.pop();
                 }
-                else return rshell();
+                else return rshell(pathNames);
             }
             if (nextToken.front() == ">>" || nextToken.front() == "1>>" || nextToken.front() == "2>>") {
                 if (nextToken.front() == "2>>") outErr = true;
@@ -392,7 +399,7 @@ int rshell()
                     // cout << "OUTFILE: " << outFile << endl;
                     totalCMD.pop();
                 }
-                else return rshell();
+                else return rshell(pathNames);
             }
             if (nextToken.front() == "|") {
                 nextPipe = true;
@@ -404,7 +411,7 @@ int rshell()
                     // cout << "CMDtoPipe: " << CMDtoPipe << endl;
                     // totalCMD.pop();
                 }
-                else return rshell();
+                else return rshell(pathNames);
             }
             if (nextToken.front() == "<<<") {
                 isIn3 = true;
@@ -415,7 +422,7 @@ int rshell()
                     inString = totalCMD.front().front();
                     totalCMD.pop();
                 }
-                else return rshell();
+                else return rshell(pathNames);
             }
             // cout <<isOut1<<isOut2<<isIn1<<isIn3<<nextPipe<<endl;
         }
@@ -451,7 +458,7 @@ int rshell()
             //return 1;
         }
         else if (pid == 0 && nextPipe && !isIn3) { // | PIPING
-            my_Pipes(ARGV, ARGV2);
+            my_Pipes(ARGV, ARGV2, pathNames);
             // if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
             // else cout << "totalCMD is not empty" << endl;
             delete[] ARGV2;
@@ -460,7 +467,7 @@ int rshell()
                 perror("error in wait");
                 exit(1);
             }
-            if (totalCMD.empty()) return rshell();
+            if (totalCMD.empty()) return rshell(pathNames);
         }
         else if (pid == 0 && !nextPipe && isIn3) { // <<<
             
@@ -472,7 +479,7 @@ int rshell()
             ARGV3[2] = 0;
             
             
-            my_Pipes(ARGV3, ARGV);
+            my_Pipes(ARGV3, ARGV, pathNames);
             // delete[] ARGV3;
             // if (totalCMD.empty()) cout << "totalCMD is empty" << endl;
             // else cout << "totalCMD is not empty" << endl;
@@ -481,7 +488,7 @@ int rshell()
                 perror("error in wait");
                 exit(1);
             }
-            if (totalCMD.empty()) return rshell();
+            if (totalCMD.empty()) return rshell(pathNames);
         }
         else if ((pid == 0) && (CMD != CMDtoPipe) && !nextPipe && !isIn3) {////////////////////////////////////////////////////
             // cout << "CHILD: " <<CMD << " CMDtoPipe: " << CMDtoPipe << " nextPipe: " << nextPipe<<endl;
@@ -547,13 +554,16 @@ int rshell()
             
             if (!nextPipe) {
                 // cout << "EXE NOW: " << ARGV[0] << endl;
-                if (execvp(ARGV[0], ARGV) != 0) {
-                    // cerr << "ERR CMD: " << ARGV[0] << endl;
-                    perror("error in execvp");
-                    isOR = false;
-                    isAND = false;
-                    // if ((wait(&status) == -1)) 
-                    exit(1);
+                string ARGV0 = ARGV[0];
+                for (size_t k = 0; k < pathNames.size(); k++) {
+                    if (execv((pathNames[k] + '/' + ARGV0).c_str(), ARGV) != 0 && k == (pathNames.size() - 1)) {
+                        // cerr << "ERR CMD: " << ARGV[0] << endl;
+                        perror("error in execv");
+                        isOR = false;
+                        isAND = false;
+                        // if ((wait(&status) == -1)) 
+                        exit(1);
+                    }
                 }
             }
             return 0;
@@ -565,7 +575,7 @@ int rshell()
         }
         // }
         else if ((isIn3 || nextPipe) && totalCMD.empty()) exit(0);
-        // else if (!nextPipe && totalCMD.empty()) return rshell();
+        // else if (!nextPipe && totalCMD.empty()) return rshell(pathNames);
         
         if (isOR && status == 0) {
             // cout << "POP OR" << endl;
@@ -578,10 +588,21 @@ int rshell()
         delete[] ARGV;
     }
     
-    return rshell();
+    return rshell(pathNames);
 }
 
 int main(int argc, char** argv)
 {
-    return rshell();
+    string envPATH = getenv("PATH");
+    // cout << envPATH << endl << endl;
+    vector<string> pathNames;
+    char_separator<char> colon(":","");
+    tokenizer<char_separator<char> > tok(envPATH, colon);
+    for (tokenizer<char_separator<char> >::iterator iter = tok.begin(); iter != tok.end(); iter++) {
+        pathNames.push_back(*iter);
+        // cout << *iter << endl;
+    }
+    // cout << endl << pathNames.size() << endl;
+    
+    return rshell(pathNames);
 }
