@@ -24,7 +24,7 @@ void sigFun(int sig)
     if (sig == SIGINT);
 }
 
-void my_CD(string newDir, char currDir[])
+void my_CD(string newDir, char currDir[], vector<string> &pathNames)
 {
     string currLoc = currDir;
     // cout << "NOW: " << currDir << 
@@ -32,6 +32,12 @@ void my_CD(string newDir, char currDir[])
         perror("error in chdir");
         // exit(1);
     }
+    if (getcwd(currDir, 128) == NULL) {
+        perror("error in getcwd");
+        exit(1);
+    }
+    pathNames.pop_back();
+    pathNames.push_back(currDir);
 }
 
 void my_Pipes(char **ARGV1, char **ARGV2, vector<string> pathNames)
@@ -123,14 +129,10 @@ void my_Pipes(char **ARGV1, char **ARGV2, vector<string> pathNames)
 }
 
 
-int rshell(vector<string> pathNames)
+int rshell(vector<string> pathNames, char currDir[])
 {
     signal(SIGINT, sigFun);
-    char currDir[128];
-    if (getcwd(currDir, 128) == NULL) {
-        perror("error in getcwd");
-        exit(1);
-    }
+    
     char *login = getpwuid(getuid())->pw_name;
     char host[64];
     gethostname(host,sizeof host);
@@ -141,12 +143,12 @@ int rshell(vector<string> pathNames)
     string cmdstring;
     getline(cin, cmdstring);
     if (cmdstring.size() == 0) {
-        return rshell(pathNames);
+        return rshell(pathNames, currDir);
     }
     else if (cmdstring == "exit") exit(0);
     if (cmdstring.find('#') != string::npos) {
         if (cmdstring.find('#') == 0) {
-            return rshell(pathNames);
+            return rshell(pathNames, currDir);
         }
         cmdstring.erase(cmdstring.find('#'), cmdstring.size() - 1);
     }
@@ -172,7 +174,7 @@ int rshell(vector<string> pathNames)
         cmdstring.erase(cmdstring.size() - 1, 1);
     }
     if (cmdstring.size() == 0) {
-        return rshell(pathNames);
+        return rshell(pathNames, currDir);
     }
     vector<string> tokens;
     char_separator<char> dash("~","-|&; ");
@@ -199,7 +201,7 @@ int rshell(vector<string> pathNames)
                 h++;
                 temp += ' ' + tokens.at(h);
             } while (h + 1 < tokens.size() && (tokens.at(h).find('"') == string::npos));
-            if (!(h < tokens.size())) return rshell(pathNames);
+            if (!(h < tokens.size())) return rshell(pathNames, currDir);
             if (temp.at(temp.size() - 1) == '"') temp.erase(temp.size() - 1);
             // cout << "temp: " << temp << endl;
             tokensWithFlags.push_back(temp);
@@ -334,12 +336,12 @@ int rshell(vector<string> pathNames)
             // h++;
         }
         else if ((h + 1) < tokens.size() && (tokens.at(h) == "cd" || tokens.at(h) == "CD" || tokens.at(h) == "Cd" || tokens.at(h) == "cD")) {
-            my_CD(tokens.at(h + 1), currDir);
+            my_CD(tokens.at(h + 1), currDir, pathNames);
             h++;
         }
         else tokensWithFlags.push_back(tokens.at(h));
     }
-    if (tokensWithFlags.empty()) return rshell(pathNames);
+    if (tokensWithFlags.empty()) return rshell(pathNames, currDir);
     if (tokensWithFlags.at(0) == "exit") exit(0);
     //totalCMD.push_back(tokensWithFlags);
     totalCMD.push(tokensWithFlags);
@@ -406,7 +408,7 @@ int rshell(vector<string> pathNames)
                     inFile = totalCMD.front().front().c_str();
                     totalCMD.pop();
                 }
-                else return rshell(pathNames);
+                else return rshell(pathNames, currDir);
             }
             if (nextToken.front() == ">" || nextToken.front() == "1>" || nextToken.front() == "2>") {
                 if (nextToken.front() == "2>") outErr = true;
@@ -419,7 +421,7 @@ int rshell(vector<string> pathNames)
                     // cout << "OUTFILE: " << outFile << endl;
                     totalCMD.pop();
                 }
-                else return rshell(pathNames);
+                else return rshell(pathNames, currDir);
             }
             if (nextToken.front() == ">>" || nextToken.front() == "1>>" || nextToken.front() == "2>>") {
                 if (nextToken.front() == "2>>") outErr = true;
@@ -432,7 +434,7 @@ int rshell(vector<string> pathNames)
                     // cout << "OUTFILE: " << outFile << endl;
                     totalCMD.pop();
                 }
-                else return rshell(pathNames);
+                else return rshell(pathNames, currDir);
             }
             if (nextToken.front() == "|") {
                 nextPipe = true;
@@ -444,7 +446,7 @@ int rshell(vector<string> pathNames)
                     // cout << "CMDtoPipe: " << CMDtoPipe << endl;
                     // totalCMD.pop();
                 }
-                else return rshell(pathNames);
+                else return rshell(pathNames, currDir);
             }
             if (nextToken.front() == "<<<") {
                 isIn3 = true;
@@ -455,7 +457,7 @@ int rshell(vector<string> pathNames)
                     inString = totalCMD.front().front();
                     totalCMD.pop();
                 }
-                else return rshell(pathNames);
+                else return rshell(pathNames, currDir);
             }
             // cout <<isOut1<<isOut2<<isIn1<<isIn3<<nextPipe<<endl;
         }
@@ -500,7 +502,7 @@ int rshell(vector<string> pathNames)
                 perror("error in wait");
                 exit(1);
             }
-            if (totalCMD.empty()) return rshell(pathNames);
+            if (totalCMD.empty()) return rshell(pathNames, currDir);
         }
         else if (pid == 0 && !nextPipe && isIn3) { // <<<
             
@@ -521,7 +523,7 @@ int rshell(vector<string> pathNames)
                 perror("error in wait");
                 exit(1);
             }
-            if (totalCMD.empty()) return rshell(pathNames);
+            if (totalCMD.empty()) return rshell(pathNames, currDir);
         }
         else if ((pid == 0) && (CMD != CMDtoPipe) && !nextPipe && !isIn3) {////////////////////////////////////////////////////
             // cout << "CHILD: " <<CMD << " CMDtoPipe: " << CMDtoPipe << " nextPipe: " << nextPipe<<endl;
@@ -612,7 +614,7 @@ int rshell(vector<string> pathNames)
         }
         // }
         else if ((isIn3 || nextPipe) && totalCMD.empty()) exit(0);
-        // else if (!nextPipe && totalCMD.empty()) return rshell(pathNames);
+        // else if (!nextPipe && totalCMD.empty()) return rshell(pathNames, currDir);
         
         if (isOR && status == 0) {
             // cout << "POP OR" << endl;
@@ -625,11 +627,16 @@ int rshell(vector<string> pathNames)
         delete[] ARGV;
     }
     
-    return rshell(pathNames);
+    return rshell(pathNames, currDir);
 }
 
 int main(int argc, char** argv)
 {
+    char currDir[128];
+    if (getcwd(currDir, 128) == NULL) {
+        perror("error in getcwd");
+        exit(1);
+    }
     string envPATH = getenv("PATH");
     // cout << envPATH << endl << endl;
     vector<string> pathNames;
@@ -639,7 +646,8 @@ int main(int argc, char** argv)
         pathNames.push_back(*iter);
         // cout << *iter << endl;
     }
+    pathNames.push_back(currDir);
     // cout << endl << pathNames.size() << endl;
     
-    return rshell(pathNames);
+    return rshell(pathNames, currDir);
 }
