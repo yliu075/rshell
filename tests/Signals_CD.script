@@ -1,0 +1,94 @@
+Script started on Sun Mar  8 22:17:02 2015
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+~
+yliu075@hammer $ cs100
+/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cs100-runtests bin/rshell sig_test 100000
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+[1;31mbin/rshell[0m: not found
+Usage: cs100-runtests shell testFile[s] [delay]
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd rshell
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m cd rshells100-runtests bin/rshell sig_test 100000
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+************
+* sig_test *
+************
+================================================================================
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ #change dir to src
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ cd src
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ ls
+cp.cpp	ls.cpp	main.cpp
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ #change dir back to perv dir
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ cd ..
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ ls
+LICENSE  Makefile  README.md  a.out  bin  err.txt  in.txt  out.txt  out2.txt  sig_test	src  test.cpp  tests
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ #cd with other spellings
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ CD src
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ Cd ..
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ cD src
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ #change dir back
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ cd ..
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ #change dir to src with slash at the end
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ cd src/
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ #change dir back
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ cd ..
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ #change dir to src with ./ at the beginning
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ cd ./src
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ #change dir with multilple dir chained together
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ cd ../../../../../
+/
+yliu075@hammer.cs.ucr.edu$ ls
+C:\nppdf32Log\debuglog.txt  boot    class  etc	  home	lib64	    media  mnt	opt   root  selinux  sys  usr
+bin			    cgroup  dev    extra  lib	lost+found  misc   net	proc  sbin  srv      tmp  var
+/
+yliu075@hammer.cs.ucr.edu$ exit
+
+================================================================================
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~
+yliu075@hammer $ exit
+exit
+
+Script done on Sun Mar  8 22:18:34 2015
