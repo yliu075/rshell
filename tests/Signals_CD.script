@@ -1,4 +1,4 @@
-Script started on Sun Mar  8 22:17:02 2015
+Script started on Sun Mar  8 23:48:19 2015
 bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
 ~
 yliu075@hammer $ cs100
@@ -24,12 +24,9 @@ yliu075@hammer $ cs100
 [0m
 bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
 bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
-[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cs100-runtests bin/rshell sig_test 100000
-bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
-[1;31mbin/rshell[0m: not found
-Usage: cs100-runtests shell testFile[s] [delay]
-[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd rshell
-[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m cd rshells100-runtests bin/rshell sig_test 100000
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd rshell
+[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m cd rshellat b.script s100-runtests bin/rshell false_cmd 100000 >> b.scriptat b.script [Ks100-runtests bin/rshell false_cmd 100000 >> b.scriptat a.script[K[4hs100-runtests bin/rshell false_cmd 100000 >[4l>  a.scriptat a.script[K[4hs100-runtests bin/rshell false_cmd 100000[4l > a.script[Kvim false_cmd[Kcat tests/Signals_CD.script s100-runtests bin/rshell sig_test 100000 > tests/Signals_CD.scriipt     [A[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m cs100-runtests bin/rshell sig_test 100000 > tests/Signals_CD.scr [K[A[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m cs100-runtests bin/rshell sig_test 100000 > tests/Signals_CD.sc[K
+[K[A[s%%%%%%%%%%[u[0;32myliu075[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m cs100-runtests bin/rshell sig_test 100000 > tests/Signals_CD.sc                      
 bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
 ************
 * sig_test *
@@ -43,12 +40,18 @@ yliu075@hammer.cs.ucr.edu$ cd src
 yliu075@hammer.cs.ucr.edu$ ls
 cp.cpp	ls.cpp	main.cpp
 /home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ #chabge dir into non existing dir
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ cd abc
+error in chdir: No such file or directory
+/home/csmajs/yliu075/rshell/src
 yliu075@hammer.cs.ucr.edu$ #change dir back to perv dir
 /home/csmajs/yliu075/rshell/src
 yliu075@hammer.cs.ucr.edu$ cd ..
 /home/csmajs/yliu075/rshell
 yliu075@hammer.cs.ucr.edu$ ls
-LICENSE  Makefile  README.md  a.out  bin  err.txt  in.txt  out.txt  out2.txt  sig_test	src  test.cpp  tests
+LICENSE   README.md  a.script  bin	err_test  out.txt   sig_test  test.cpp
+Makefile  a.out      b.script  err.txt	in.txt	  out2.txt  src       tests
 /home/csmajs/yliu075/rshell
 yliu075@hammer.cs.ucr.edu$ #cd with other spellings
 /home/csmajs/yliu075/rshell
@@ -79,8 +82,9 @@ yliu075@hammer.cs.ucr.edu$ #change dir with multilple dir chained together
 yliu075@hammer.cs.ucr.edu$ cd ../../../../../
 /
 yliu075@hammer.cs.ucr.edu$ ls
-C:\nppdf32Log\debuglog.txt  boot    class  etc	  home	lib64	    media  mnt	opt   root  selinux  sys  usr
-bin			    cgroup  dev    extra  lib	lost+found  misc   net	proc  sbin  srv      tmp  var
+C:\nppdf32Log\debuglog.txt  cgroup  etc    lib	       media  net   root     srv  usr
+bin			    class   extra  lib64       misc   opt   sbin     sys  var
+boot			    dev     home   lost+found  mnt    proc  selinux  tmp
 /
 yliu075@hammer.cs.ucr.edu$ exit
 
@@ -91,4 +95,4 @@ exit
 yliu075@hammer $ exit
 exit
 
-Script done on Sun Mar  8 22:18:34 2015
+Script done on Sun Mar  8 23:48:59 2015
