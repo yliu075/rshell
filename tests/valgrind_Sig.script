@@ -1,0 +1,39 @@
+Script started on Sun Mar  8 22:34:09 2015
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+~
+yliu075@hammer $ cd rshell
+~/rshell
+yliu075@hammer $ bin/rshell 
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ ls
+LICENSE  Makefile  README.md  a.out  bin  err.txt  in.txt  out.txt  out2.txt  sig_test	src  test.cpp  tests
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ cat
+hello
+hello
+world
+world
+^C/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ ^C^C^C^C^C^C^C
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ cd src
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ ls
+cp.cpp	ls.cpp	main.cpp
+/home/csmajs/yliu075/rshell/src
+yliu075@hammer.cs.ucr.edu$ cd ..
+/home/csmajs/yliu075/rshell
+yliu075@hammer.cs.ucr.edu$ cd ../../..
+/home
+yliu075@hammer.cs.ucr.edu$ cd ../... /../
+/
+yliu075@hammer.cs.ucr.edu$ ls
+C:\nppdf32Log\debuglog.txt  boot    class  etc	  home	lib64	    media  mnt	opt   root  selinux  sys  usr
+bin			    cgroup  dev    extra  lib	lost+found  misc   net	proc  sbin  srv      tmp  var
+/
+yliu075@hammer.cs.ucr.edu$ exit
+~/rshell
+yliu075@hammer $ exit
+exit
+
+Script done on Sun Mar  8 22:35:23 2015
