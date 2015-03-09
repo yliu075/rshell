@@ -13,20 +13,26 @@ rshell is a simple Unix command shell with the ability to:
 | use >>                           | ls >> out.txt |
 | use <                            | ./a.out < in.txt |
 | use <<<                          | cat <<< "hello world" |
-| use &#124;                      | echo hello world &#124; cat |
-| use 1> or 2>                    | ls 2> err.txt |
-| use 1>> or 2>>                  | ls 2>> err.txt |
-
+| use &#124;                       | echo hello world &#124; cat |
+| use 1> or 2>                     | ls 2> err.txt |
+| use 1>> or 2>>                   | ls 2>> err.txt |
+| use cd                           | cd bin |
 
 ###exit command
-The exit command (exit) allows user to quit rshell
+The exit command (exit) allows users to quit rshell
+
+###change directory command
+The change directory command (cd) allows to users to change their current working directory
+
+###SIGINT
+SIGINT (ctrl c) does not exit rshell, it only exit the current running child program
 
 ###installation
 to download and use rshell:
 ```
 $ git clone  http://github.com/yliu075/rshell.git
 $ cd rshell
-$ git checkout hw2
+$ git checkout hw3
 $ make
 $ bin/rshell
 ```
